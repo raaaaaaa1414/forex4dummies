@@ -1,0 +1,1141 @@
+<!doctype html><html><head><meta charset=utf8><meta name=viewport content="width=device-width,initial-scale=1,viewport-fit=cover"><style>:root{color-scheme:light;box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px)}html{scroll-padding-top:env(safe-area-inset-top,0px)}body{margin:0;padding:0;font:14px -apple-system,BlinkMacSystemFont,sans-serif;background:#fff;color:#000}img{max-width:100%}[hidden]:not([hidden=until-found i]){display:none!important}</style></head><body>
+<title>Forex Learning Path</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700&family=Source+Sans+3:wght@400;600;700&family=JetBrains+Mono:wght@400;600&display=swap">
+<style>
+/* Layout: a single reading column with a sticky section rail; each lesson is a panel with one live instrument. */
+:root{
+  --bg:#F1F3F7; --surface:#FFFFFF; --sunk:#E7EBF2; --ink:#0E1A2B; --muted:#4F5D75; --line:#D5DCE7; --grid:#E4E9F1;
+  --accent:#2246B5; --accent-ink:#FFFFFF; --up:#1E66C8; --down:#C4561F; --ma:#8A5CF6; --ma2:#B07A12;
+  --warn-bg:#FFF0E4; --warn-ink:#7A3410; --ok-bg:#E5EEFC;
+  --display:"Bricolage Grotesque", "Trebuchet MS", sans-serif;
+  --body:"Source Sans 3", "Segoe UI", Arial, sans-serif;
+  --mono:"JetBrains Mono", "Courier New", monospace;
+}
+@media (prefers-color-scheme: dark){:root:not([data-theme="light"]){
+  --bg:#0B111C; --surface:#121B2B; --sunk:#0E1624; --ink:#E6ECF6; --muted:#9AA8BF; --line:#25324A; --grid:#1A2539;
+  --accent:#7D9DFF; --accent-ink:#0B111C; --up:#62A0F2; --down:#F0894F; --ma:#B89BFF; --ma2:#E2B04A;
+  --warn-bg:#2A1A10; --warn-ink:#F4BE98; --ok-bg:#16243D; color-scheme:dark}}
+:root[data-theme="dark"]{
+  --bg:#0B111C; --surface:#121B2B; --sunk:#0E1624; --ink:#E6ECF6; --muted:#9AA8BF; --line:#25324A; --grid:#1A2539;
+  --accent:#7D9DFF; --accent-ink:#0B111C; --up:#62A0F2; --down:#F0894F; --ma:#B89BFF; --ma2:#E2B04A;
+  --warn-bg:#2A1A10; --warn-ink:#F4BE98; --ok-bg:#16243D; color-scheme:dark}
+*{box-sizing:border-box}
+body{background:var(--bg);color:var(--ink);font-family:var(--body);font-size:17px;line-height:1.55}
+.wrap{max-width:1040px;margin:0 auto;padding-inline:20px;padding-block:0 64px}
+h1,h2,h3{font-family:var(--display);line-height:1.1;text-wrap:balance;margin:0}
+h1{font-size:clamp(2.3rem,6vw,4rem);font-weight:700;letter-spacing:-.02em}
+h2{font-size:clamp(1.6rem,3.6vw,2.3rem);font-weight:700;letter-spacing:-.01em}
+h3{font-size:1.2rem;font-weight:700}
+p{margin:0;max-width:65ch}
+a{color:var(--accent)}
+.mono,.num{font-family:var(--mono);font-variant-numeric:tabular-nums}
+.eyebrow{font-family:var(--mono);font-size:.78rem;letter-spacing:.12em;text-transform:uppercase;color:var(--accent);font-weight:600}
+.muted{color:var(--muted)}
+button,select,input{font:inherit;color:inherit}
+:focus-visible{outline:3px solid var(--accent);outline-offset:2px;border-radius:6px}
+
+/* rail */
+.rail{position:sticky;top:env(safe-area-inset-top,0px);z-index:5;background:color-mix(in srgb,var(--bg) 88%,transparent);backdrop-filter:blur(8px);border-bottom:1px solid var(--line)}
+.rail nav{max-width:1040px;margin:0 auto;padding-inline:20px;display:flex;gap:4px;overflow-x:auto;scrollbar-width:none}
+.rail a{flex:none;text-decoration:none;color:var(--muted);font-weight:600;font-size:.92rem;padding:12px 10px;border-bottom:2px solid transparent}
+.rail a:hover{color:var(--ink)}
+.rail a.on{color:var(--ink);border-bottom-color:var(--accent)}
+
+/* hero */
+.hero{display:grid;gap:22px;padding-block:48px 28px}
+.hero p.lead{font-size:1.2rem;color:var(--muted)}
+.road{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:0;position:relative;margin-top:8px}
+.road svg{position:absolute;left:0;top:19px;width:100%;height:4px;overflow:visible}
+.road .track{stroke:var(--line);stroke-width:4}
+.road .fill{stroke:var(--accent);stroke-width:4;stroke-dasharray:1000;stroke-dashoffset:0;animation:draw 2.4s ease-out}
+@keyframes draw{from{stroke-dashoffset:1000}to{stroke-dashoffset:0}}
+.stage{position:relative;display:grid;gap:6px;padding-right:12px;text-decoration:none;color:inherit}
+.dot{width:42px;height:42px;border-radius:50%;background:var(--surface);border:3px solid var(--accent);display:grid;place-items:center;font-family:var(--mono);font-weight:600;position:relative}
+.stage:last-child .dot{background:var(--accent);color:var(--accent-ink)}
+.stage b{font-family:var(--display);font-size:1.1rem}
+.stage span{font-size:.92rem;color:var(--muted)}
+@media (max-width:640px){.road{grid-template-columns:1fr;gap:16px}.road svg{display:none}.stage{grid-template-columns:42px 1fr;column-gap:12px}.stage .dot{grid-row:span 2}}
+
+/* sections */
+section.block{display:grid;gap:22px;padding-block:44px;border-top:1px solid var(--line);scroll-margin-top:56px}
+.head{display:grid;gap:10px}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:22px;display:grid;gap:16px;min-width:0}
+.grid2{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:18px}
+.grid3{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:18px}
+@media (max-width:820px){.grid2,.grid3{grid-template-columns:1fr}}
+.facts{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:14px}
+.fact{display:grid;gap:4px;padding:16px;background:var(--sunk);border-radius:10px}
+.fact .k{font-family:var(--mono);font-size:1.25rem;font-weight:600}
+.note{background:var(--warn-bg);color:var(--warn-ink);border-radius:10px;padding:14px 16px;font-size:.98rem}
+.note b{color:inherit}
+
+/* controls */
+.field{display:grid;gap:6px;min-width:0}
+.field label{font-weight:600;font-size:.92rem}
+.field input[type=number],.field select{width:100%;padding:10px 12px;border:1px solid var(--line);border-radius:8px;background:var(--bg)}
+input[type=range]{width:100%;accent-color:var(--accent)}
+.row{display:flex;flex-wrap:wrap;gap:10px;align-items:center}
+.seg{display:inline-flex;background:var(--sunk);border-radius:10px;padding:4px;gap:4px;flex-wrap:wrap}
+.seg button{border:0;background:transparent;padding:8px 14px;border-radius:7px;font-weight:600;color:var(--muted);cursor:pointer}
+.seg button[aria-selected="true"],.seg button[aria-pressed="true"]{background:var(--surface);color:var(--ink);box-shadow:0 1px 3px rgba(0,0,0,.12)}
+.btn{border:1px solid var(--line);background:var(--surface);padding:8px 14px;border-radius:8px;font-weight:600;cursor:pointer}
+.btn:hover{border-color:var(--accent)}
+.out{display:grid;grid-template-columns:repeat(auto-fit,minmax(150px,1fr));gap:12px}
+.out div{display:grid;gap:2px;padding:12px 14px;border-radius:10px;background:var(--sunk)}
+.out small{color:var(--muted);font-size:.82rem;font-weight:600;text-transform:uppercase;letter-spacing:.06em}
+.out strong{font-family:var(--mono);font-size:1.2rem;font-variant-numeric:tabular-nums}
+.pos{color:var(--up)} .neg{color:var(--down)}
+
+canvas{display:block;width:100%;border-radius:10px;background:var(--sunk)}
+.cv-strat{height:340px}
+.cv-candle{height:260px}
+.status{font-family:var(--mono);font-size:.92rem;padding:10px 14px;border-radius:8px;background:var(--sunk);min-height:2.9em}
+.legend{display:flex;flex-wrap:wrap;gap:14px;font-size:.88rem;color:var(--muted)}
+.legend i{display:inline-block;width:18px;height:3px;border-radius:2px;vertical-align:middle;margin-right:6px}
+
+.rules{display:grid;gap:10px;margin:0;padding:0;list-style:none}
+.rules li{display:grid;grid-template-columns:96px 1fr;gap:12px;padding-bottom:10px;border-bottom:1px solid var(--line)}
+.rules li:last-child{border-bottom:0;padding-bottom:0}
+.rules b{font-family:var(--mono);font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted);padding-top:3px}
+.rules li.fail b{color:var(--down)}
+
+/* leverage bar */
+.meter{height:18px;border-radius:9px;background:var(--sunk);overflow:hidden;position:relative}
+.meter span{position:absolute;top:0;bottom:0;left:0;border-radius:9px;transition:width .5s ease,background-color .3s}
+.bars{display:flex;align-items:flex-end;gap:4px;height:150px;padding:10px;background:var(--sunk);border-radius:10px}
+.bars span{flex:1;background:var(--down);border-radius:3px 3px 0 0;transition:height .45s ease;min-width:4px}
+.bars span:first-child{background:var(--up)}
+
+/* sessions */
+.timeline{position:relative;height:150px;background:var(--sunk);border-radius:10px;overflow:hidden}
+.sess{position:absolute;height:30px;border-radius:6px;font-size:.85rem;font-weight:600;padding:5px 10px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.overlap{position:absolute;top:0;bottom:24px;background:color-mix(in srgb,var(--down) 18%,transparent)}
+.now{position:absolute;top:0;bottom:24px;width:2px;background:var(--ink)}
+.now::after{content:"Now";position:absolute;top:2px;left:5px;font-family:var(--mono);font-size:.72rem;font-weight:600}
+.ticks{position:absolute;left:0;right:0;bottom:0;height:24px;border-top:1px solid var(--line);font-family:var(--mono);font-size:.72rem;color:var(--muted)}
+.ticks span{position:absolute;top:4px;transform:translateX(-50%)}
+.ticks span:first-child{transform:none;left:6px!important}
+.ticks span:last-child{transform:translateX(-100%)}
+.clock{font-family:var(--mono);font-size:1.6rem;font-weight:600}
+.chip{display:inline-block;padding:3px 10px;border-radius:999px;font-size:.85rem;font-weight:600;background:var(--sunk)}
+.chip.open{background:var(--ok-bg);color:var(--up)}
+.chip.closed{background:var(--warn-bg);color:var(--warn-ink)}
+
+/* platforms */
+.plat{display:grid;gap:8px;align-content:start}
+.plat .tag{font-family:var(--mono);font-size:.75rem;letter-spacing:.08em;text-transform:uppercase;color:var(--muted)}
+
+/* plan */
+.weeks{display:grid;gap:0;margin:0;padding:0;list-style:none}
+.weeks li{display:grid;grid-template-columns:120px 1fr;gap:16px;padding:16px 0;border-top:1px solid var(--line)}
+.weeks li:first-child{border-top:0}
+.weeks .when{font-family:var(--mono);font-weight:600;color:var(--accent)}
+.weeks ul{margin:6px 0 0;padding-left:20px;color:var(--muted)}
+@media (max-width:560px){.weeks li{grid-template-columns:1fr;gap:4px}.rules li{grid-template-columns:1fr;gap:2px}}
+.checks{display:grid;gap:8px}
+.checks label{display:flex;gap:12px;align-items:flex-start;padding:12px 14px;border-radius:10px;background:var(--sunk);cursor:pointer}
+.checks input{width:20px;height:20px;margin-top:2px;accent-color:var(--accent);flex:none}
+.ready-meter{height:12px;border-radius:6px;background:var(--sunk);overflow:hidden}
+.ready-meter span{display:block;height:100%;background:var(--accent);transition:width .4s}
+.flags{display:grid;gap:8px;margin:0;padding-left:20px}
+/* course */
+.course{display:grid;gap:12px}
+details.mod{background:var(--surface);border:1px solid var(--line);border-radius:14px;min-width:0}
+details.mod>summary{list-style:none;cursor:pointer;display:grid;grid-template-columns:44px 1fr auto;gap:14px;align-items:center;padding:16px 18px}
+details.mod>summary::-webkit-details-marker{display:none}
+details.mod>summary .n{width:44px;height:44px;border-radius:10px;background:var(--sunk);display:grid;place-items:center;font-family:var(--mono);font-weight:600}
+details.mod[open]>summary .n{background:var(--accent);color:var(--accent-ink)}
+details.mod>summary .t{display:grid;gap:2px;min-width:0}
+details.mod>summary .t b{font-family:var(--display);font-size:1.15rem}
+details.mod>summary .t span{color:var(--muted);font-size:.92rem}
+details.mod>summary .chev{font-family:var(--mono);color:var(--muted);transition:transform .2s}
+details.mod[open]>summary .chev{transform:rotate(90deg)}
+.mod-body{padding:4px 18px 22px;display:grid;gap:18px;border-top:1px solid var(--line);padding-top:18px}
+.topics{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:16px 28px}
+@media (max-width:760px){.topics{grid-template-columns:1fr}}
+.topic{display:grid;gap:4px;align-content:start;min-width:0}
+.topic h4{margin:0;font-size:1.02rem;font-weight:700}
+.topic p{color:var(--muted);font-size:.98rem}
+.lab{background:var(--sunk);border-radius:12px;padding:16px;display:grid;gap:12px;min-width:0}
+.lab h4{margin:0;font-family:var(--display);font-size:1.05rem}
+.lab canvas{background:var(--surface);height:260px}
+.src{display:flex;flex-wrap:wrap;gap:10px;align-items:center;font-size:.92rem;color:var(--muted)}
+.chip.free{background:var(--ok-bg);color:var(--up)}
+.chip.prem{background:var(--warn-bg);color:var(--warn-ink)}
+.minis{display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));gap:12px}
+.minis figure{margin:0;display:grid;gap:6px;justify-items:center;text-align:center;padding:10px;background:var(--surface);border-radius:10px}
+.minis figcaption{font-size:.88rem;color:var(--muted)}
+.minis figcaption b{display:block;color:var(--ink)}
+table.tbl{width:100%;border-collapse:collapse;font-size:.95rem}
+.tblwrap{overflow-x:auto}
+table.tbl th,table.tbl td{text-align:left;padding:8px 10px;border-bottom:1px solid var(--line);vertical-align:top}
+table.tbl th{font-size:.8rem;text-transform:uppercase;letter-spacing:.06em;color:var(--muted)}
+pre.plan{white-space:pre-wrap;font-family:var(--mono);font-size:.88rem;background:var(--surface);border:1px solid var(--line);border-radius:10px;padding:14px;margin:0;max-height:360px;overflow:auto}
+.quiz{display:grid;gap:14px}
+.quiz fieldset{border:0;padding:0;margin:0;display:grid;gap:8px}
+.quiz legend{font-weight:700;margin-bottom:4px}
+.quiz label{display:flex;gap:10px;align-items:center;padding:8px 12px;background:var(--surface);border-radius:8px;cursor:pointer}
+.tf{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:10px}
+@media (max-width:640px){.tf{grid-template-columns:1fr}}
+.tf div{background:var(--surface);border-radius:10px;padding:12px;display:grid;gap:4px}
+.tf b{font-family:var(--mono)}
+footer{padding-block:28px 0;border-top:1px solid var(--line);color:var(--muted);font-size:.92rem;display:grid;gap:6px}
+@media (prefers-reduced-motion:reduce){*{animation:none!important;transition:none!important}}
+</style>
+
+<div class="rail"><nav id="rail" aria-label="Sections">
+<a href="#path">Path</a><a href="#course">Full course</a><a href="#basics">Basics</a><a href="#charts">Charts</a><a href="#strategies">Strategies</a><a href="#tools">Risk tools</a><a href="#sessions">Sessions</a><a href="#platforms">Platforms</a><a href="#plan">90-day plan</a><a href="#ready">Ready?</a>
+</nav></div>
+
+<main class="wrap">
+
+<header class="hero" id="path">
+<p class="eyebrow">A realistic path for Philippine beginners</p>
+<h1>Forex Learning Path</h1>
+<p class="lead">From your first lesson to your first real trade, in four stages. Real money comes last, and only after your demo results say you're ready.</p>
+<div class="road">
+<svg viewBox="0 0 1000 4" preserveAspectRatio="none" aria-hidden="true"><line class="track" x1="20" y1="2" x2="980" y2="2"/><line class="fill" x1="20" y1="2" x2="980" y2="2"/></svg>
+<a class="stage" href="#basics"><div class="dot">1</div><b>Learn</b><span>Weeks 1–4 · basics, charts, risk</span></a>
+<a class="stage" href="#strategies"><div class="dot">2</div><b>Practice</b><span>Weeks 5–12 · one strategy on demo</span></a>
+<a class="stage" href="#ready"><div class="dot">3</div><b>Prove</b><span>Day 90 · readiness check</span></a>
+<a class="stage" href="#plan"><div class="dot">4</div><b>Start small</b><span>Only if you pass · micro lots</span></a>
+</div>
+</header>
+
+<section class="block" id="course">
+<div class="head"><p class="eyebrow">The full curriculum</p><h2>Full course map</h2>
+<p class="muted">Eleven modules covering the same topics as the BabyPips School of Pipsology, from first steps to graduation, explained here in plain language. Each module links to the matching BabyPips course if you want more depth. Their first five courses are free; the later ones need a paid BabyPips membership, but everything on this page is free.</p></div>
+<div class="course">
+
+<details class="mod" data-mod="1"><summary><span class="n">1</span><span class="t"><b>Foundations</b><span>What forex is, who trades it, when, and how margin works</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>What forex is</h4><p>The global market for exchanging currencies. It has no single exchange; banks and brokers trade electronically around the world, which is why it runs 24 hours on weekdays.</p></div>
+<div class="topic"><h4>How a trade works</h4><p>Currencies trade in pairs. The first is the base, the second the quote. Buying EUR/USD means buying euros and paying in dollars at the same time.</p></div>
+<div class="topic"><h4>When you can trade</h4><p>From Monday morning in Asia to Friday evening in New York. Activity rises and falls with the Tokyo, London and New York sessions (see the live timeline below).</p></div>
+<div class="topic"><h4>Who trades</h4><p>Central banks, big commercial banks, companies paying for imports, investment funds, and retail traders like you, who are the smallest players.</p></div>
+<div class="topic"><h4>Why people trade it</h4><p>It's open nearly all week, the major pairs are easy to buy and sell, and accounts can start small. The same leverage that makes small accounts possible also makes them easy to lose.</p></div>
+<div class="topic"><h4>Margin</h4><p>Margin is the deposit your broker holds to keep a leveraged trade open. If losses eat into it too far, you get a margin call, and then your trades are closed automatically (a stop out).</p></div>
+</div>
+<div class="lab"><h4>Margin calculator (EUR/USD at 1.1000)</h4>
+<div class="grid3">
+<div class="field"><label for="mg-bal">Account balance (USD)</label><input id="mg-bal" type="number" min="10" step="10" value="500"></div>
+<div class="field"><label for="mg-lots">Trade size (lots)</label><input id="mg-lots" type="number" min="0.01" step="0.01" value="0.10"></div>
+<div class="field"><label for="mg-lev">Leverage</label><select id="mg-lev"><option value="30">30:1</option><option value="50">50:1</option><option value="100" selected>100:1</option><option value="500">500:1</option></select></div>
+</div>
+<div class="out">
+<div><small>Position value</small><strong id="mg-pos">$11,000</strong></div>
+<div><small>Margin used</small><strong id="mg-used">$110</strong></div>
+<div><small>Free margin</small><strong id="mg-free">$390</strong></div>
+<div><small>Margin level</small><strong id="mg-lvl">455%</strong></div>
+</div>
+<p class="muted" style="font-size:.92rem" id="mg-note"></p>
+</div>
+<div class="src"><span class="chip free">Free</span><a href="https://www.babypips.com/learn/forex/preschool" target="_blank" rel="noopener">BabyPips: Preschool</a></div>
+</div></details>
+
+<details class="mod" data-mod="2"><summary><span class="n">2</span><span class="t"><b>Brokers, analysis and chart types</b><span>How brokers work, the three kinds of analysis, and reading a chart</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Broker types</h4><p>Some brokers take the other side of your trade (market makers). Others pass your order to the wider market (often called ECN or STP). Both can be fine; what matters is how they're regulated and what they charge.</p></div>
+<div class="topic"><h4>What to check in a broker</h4><p>Who regulates it, typical spreads, overnight fees (swaps), how withdrawals work, and whether there's a free demo. In the Philippines, also remember the SEC doesn't register forex brokers.</p></div>
+<div class="topic"><h4>Technical analysis</h4><p>Studying price charts to find patterns and levels. Most of this course is technical.</p></div>
+<div class="topic"><h4>Fundamental analysis</h4><p>Studying the economy behind a currency: interest rates, inflation, jobs and growth.</p></div>
+<div class="topic"><h4>Sentiment analysis</h4><p>Judging whether most traders are leaning one way, and whether the crowd is likely to be wrong.</p></div>
+<div class="topic"><h4>Using all three</h4><p>Many traders use fundamentals for direction, technicals for timing, and sentiment as a warning sign.</p></div>
+</div>
+<div class="lab"><h4>Same prices, three chart types</h4>
+<div class="seg" id="ct-seg"><button aria-pressed="false" data-m="line">Line</button><button aria-pressed="false" data-m="bar">Bar (OHLC)</button><button aria-pressed="true" data-m="candle">Candlestick</button></div>
+<canvas id="cv-ctype" role="img" aria-label="The same 30 periods of prices drawn as a line, bar or candlestick chart"></canvas>
+<p class="muted" style="font-size:.92rem" id="ct-note"></p>
+</div>
+<div class="src"><span class="chip free">Free</span><a href="https://www.babypips.com/learn/forex/kindergarten" target="_blank" rel="noopener">BabyPips: Kindergarten</a></div>
+</div></details>
+
+<details class="mod" data-mod="3"><summary><span class="n">3</span><span class="t"><b>Core technical tools</b><span>Support and resistance, candlestick patterns, Fibonacci, moving averages, popular indicators</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Support and resistance</h4><p>Zones where price has turned before. Draw them through areas, not single points, and trust levels touched several times more than levels touched once.</p></div>
+<div class="topic"><h4>Moving averages</h4><p>A simple moving average (SMA) weights every period equally. An exponential one (EMA) weights recent prices more, so it reacts faster but gives more false signals.</p></div>
+</div>
+<div class="lab"><h4>Candlestick patterns to recognize</h4>
+<div class="minis">
+<figure><svg viewBox="0 0 60 90" width="60" height="90" aria-hidden="true"><rect x="29" y="8" width="2" height="74" style="fill:var(--muted)"/><rect x="18" y="43" width="24" height="4" style="fill:var(--muted)"/></svg><figcaption><b>Doji</b>Open ≈ close. Indecision.</figcaption></figure>
+<figure><svg viewBox="0 0 60 90" width="60" height="90" aria-hidden="true"><rect x="29" y="10" width="2" height="72" style="fill:var(--up)"/><rect x="18" y="12" width="24" height="18" style="fill:var(--up)"/></svg><figcaption><b>Hammer</b>Long lower wick after a fall. Buyers pushed back.</figcaption></figure>
+<figure><svg viewBox="0 0 60 90" width="60" height="90" aria-hidden="true"><rect x="29" y="8" width="2" height="72" style="fill:var(--down)"/><rect x="18" y="60" width="24" height="18" style="fill:var(--down)"/></svg><figcaption><b>Shooting star</b>Long upper wick after a rise. Sellers pushed back.</figcaption></figure>
+<figure><svg viewBox="0 0 60 90" width="60" height="90" aria-hidden="true"><rect x="16" y="30" width="2" height="36" style="fill:var(--down)"/><rect x="10" y="36" width="14" height="22" style="fill:var(--down)"/><rect x="41" y="18" width="2" height="60" style="fill:var(--up)"/><rect x="31" y="26" width="22" height="44" style="fill:var(--up)"/></svg><figcaption><b>Bullish engulfing</b>A big up candle swallows the last down candle.</figcaption></figure>
+<figure><svg viewBox="0 0 60 90" width="60" height="90" aria-hidden="true"><rect x="16" y="24" width="2" height="44" style="fill:var(--up)"/><rect x="10" y="32" width="14" height="24" style="fill:var(--up)"/><rect x="41" y="14" width="2" height="64" style="fill:var(--down)"/><rect x="31" y="22" width="22" height="46" style="fill:var(--down)"/></svg><figcaption><b>Bearish engulfing</b>A big down candle swallows the last up candle.</figcaption></figure>
+<figure><svg viewBox="0 0 60 90" width="60" height="90" aria-hidden="true"><rect x="7" y="10" width="2" height="50" style="fill:var(--down)"/><rect x="2" y="14" width="12" height="40" style="fill:var(--down)"/><rect x="29" y="58" width="2" height="26" style="fill:var(--muted)"/><rect x="25" y="68" width="10" height="4" style="fill:var(--muted)"/><rect x="51" y="14" width="2" height="48" style="fill:var(--up)"/><rect x="46" y="20" width="12" height="38" style="fill:var(--up)"/></svg><figcaption><b>Morning star</b>Down, pause, strong up. A possible bottom.</figcaption></figure>
+</div>
+<p class="muted" style="font-size:.92rem">A pattern means more at a support or resistance level than in the middle of nowhere. None of them work every time.</p>
+</div>
+<div class="lab"><h4>Fibonacci retracement</h4>
+<p class="muted" style="font-size:.95rem">After a strong move, traders watch for pullbacks to 38.2%, 50% and 61.8% of that move. Pick where this pullback stops:</p>
+<div class="seg" id="fb-seg"><button aria-pressed="false" data-f="0.382">38.2%</button><button aria-pressed="false" data-f="0.5">50%</button><button aria-pressed="true" data-f="0.618">61.8%</button><button aria-pressed="false" data-f="1.05">Breaks below</button></div>
+<canvas id="cv-fib" role="img" aria-label="An up move with Fibonacci retracement levels and a pullback that stops at the selected level"></canvas>
+<p class="muted" style="font-size:.92rem" id="fb-note"></p>
+</div>
+<div class="topics">
+<div class="topic"><h4>Bollinger Bands</h4><p>A moving average with bands two standard deviations above and below. Bands widen when the market is volatile and squeeze when it's quiet, often before a big move.</p></div>
+<div class="topic"><h4>MACD</h4><p>Built from two exponential averages. When its line crosses its signal line, momentum may be changing.</p></div>
+<div class="topic"><h4>Parabolic SAR</h4><p>Dots above or below price that trail a trend. Useful for trailing a stop-loss, poor in sideways markets.</p></div>
+<div class="topic"><h4>Stochastic, RSI and ADX</h4><p>Stochastic and RSI measure whether a move is stretched. ADX measures how strong a trend is, not its direction.</p></div>
+<div class="topic"><h4>Ichimoku Cloud</h4><p>An all-in-one Japanese indicator showing trend, momentum and support zones. Busy to read, so learn it after the basics.</p></div>
+<div class="topic"><h4>Keep it simple</h4><p>Most indicators repeat the same information in different ways. Two or three you understand well beat ten you don't.</p></div>
+</div>
+<div class="src"><span class="chip free">Free</span><a href="https://www.babypips.com/learn/forex/elementary" target="_blank" rel="noopener">BabyPips: Elementary</a></div>
+</div></details>
+
+<details class="mod" data-mod="4"><summary><span class="n">4</span><span class="t"><b>Oscillators, chart patterns and pivot points</b><span>Leading vs lagging indicators, classic patterns, daily pivot levels</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Leading vs lagging</h4><p>Oscillators like RSI and Stochastic try to warn early that a move is tiring (leading). Moving averages and MACD confirm a move after it starts (lagging). Leading signals come earlier but are wrong more often.</p></div>
+<div class="topic"><h4>Overbought and oversold</h4><p>RSI above 70 or below 30 means the move has been fast. In a strong trend it can stay there a long time, so it's not a reversal signal by itself.</p></div>
+</div>
+<div class="lab"><h4>RSI under the price chart</h4>
+<canvas id="cv-rsi" style="height:320px" role="img" aria-label="A price chart with a 14-period RSI panel underneath showing the 30 and 70 levels"></canvas>
+<button class="btn" id="rsi-replay" type="button" style="justify-self:start">Replay</button>
+</div>
+<div class="lab"><h4>Chart patterns</h4>
+<div class="seg" id="pt-seg"><button aria-pressed="true" data-p="dtop">Double top</button><button aria-pressed="false" data-p="hs">Head and shoulders</button><button aria-pressed="false" data-p="tri">Ascending triangle</button><button aria-pressed="false" data-p="flag">Bull flag</button></div>
+<canvas id="cv-pat" role="img" aria-label="Animated price path forming the selected chart pattern"></canvas>
+<p class="muted" style="font-size:.95rem" id="pt-note"></p>
+</div>
+<div class="lab"><h4>Pivot point calculator</h4>
+<p class="muted" style="font-size:.95rem">Enter yesterday's high, low and close to get today's standard pivot levels.</p>
+<div class="grid3">
+<div class="field"><label for="pv-h">Yesterday's high</label><input id="pv-h" type="number" step="0.0001" value="1.1050"></div>
+<div class="field"><label for="pv-l">Yesterday's low</label><input id="pv-l" type="number" step="0.0001" value="1.0950"></div>
+<div class="field"><label for="pv-c">Yesterday's close</label><input id="pv-c" type="number" step="0.0001" value="1.1010"></div>
+</div>
+<div class="out" id="pv-out"></div>
+<p class="muted" style="font-size:.92rem">Pivot (P) = (high + low + close) ÷ 3. Above P, traders lean bullish and watch R1 and R2 as targets; below it, bearish toward S1 and S2.</p>
+</div>
+<div class="src"><span class="chip free">Free</span><a href="https://www.babypips.com/learn/forex/middle-school" target="_blank" rel="noopener">BabyPips: Middle School</a></div>
+</div></details>
+
+<details class="mod" data-mod="5"><summary><span class="n">5</span><span class="t"><b>Advanced chart reading</b><span>Heikin Ashi, Elliott Wave, harmonic patterns, divergences</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Heikin Ashi</h4><p>Modified candles that average recent prices. Trends show as long runs of one color, which makes them easier to see, but the prices shown aren't the real ones, so don't place orders from them.</p></div>
+<div class="topic"><h4>Elliott Wave</h4><p>The idea that trends move in five waves with the trend and three against it. Traders often disagree on how to count the waves, so treat it as a framework, not a forecast.</p></div>
+<div class="topic"><h4>Harmonic patterns</h4><p>Price shapes (Gartley, Butterfly, Bat and others) defined by exact Fibonacci ratios between swings. Precise rules, but they need patience and rarely form perfectly.</p></div>
+<div class="topic"><h4>Regular divergence</h4><p>Price makes a new high but RSI or MACD doesn't (or the reverse at lows). Momentum is fading, so a reversal may be near.</p></div>
+<div class="topic"><h4>Hidden divergence</h4><p>Price makes a higher low but the oscillator makes a lower low. It suggests the existing trend is likely to continue.</p></div>
+<div class="topic"><h4>When to learn these</h4><p>After you're comfortable with module 3 and 4. They add detail, not a shortcut.</p></div>
+</div>
+<div class="src"><span class="chip free">Free</span><a href="https://www.babypips.com/learn/forex/summer-school" target="_blank" rel="noopener">BabyPips: Summer School</a></div>
+</div></details>
+
+<details class="mod" data-mod="6"><summary><span class="n">6</span><span class="t"><b>Trading the price action</b><span>Price action, breakouts and fakeouts, market conditions, multiple timeframes</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Price action</h4><p>Trading from bare price movement, levels and candles, with few or no indicators. It forces you to understand what the market is doing instead of what a line says.</p></div>
+<div class="topic"><h4>Breakouts and fakeouts</h4><p>A breakout leaves a range and keeps going; a fakeout pops out and snaps back. Waiting for a candle to close beyond the level, or for a retest, filters out many fakeouts (see the Breakout replay below).</p></div>
+<div class="topic"><h4>Market environment</h4><p>Is the market trending, ranging, or jumping around on news? Trend strategies fail in ranges and range strategies fail in trends. The ATR indicator shows how far price typically moves per period.</p></div>
+<div class="topic"><h4>Multiple timeframes</h4><p>Look at a higher timeframe for direction, a middle one for the setup, and a lower one for timing your entry.</p></div>
+</div>
+<div class="tf">
+<div><b>Daily</b><span class="muted">Direction: is EUR/USD trending up, down or sideways?</span></div>
+<div><b>4-hour</b><span class="muted">Setup: is price pulling back to support in that trend?</span></div>
+<div><b>1-hour</b><span class="muted">Entry: is there a bullish candle or break to act on?</span></div>
+</div>
+<div class="src"><span class="chip prem">BabyPips Premium</span><a href="https://www.babypips.com/learn/forex/high-school" target="_blank" rel="noopener">BabyPips: High School</a></div>
+</div></details>
+
+<details class="mod" data-mod="7"><summary><span class="n">7</span><span class="t"><b>Fundamentals and news</b><span>Macro drivers, economic data, crosses, carry trades, news and sentiment</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Macro drivers</h4><p>Interest rates matter most. Inflation, jobs and growth matter mainly because they change what central banks are expected to do next.</p></div>
+<div class="topic"><h4>Data and reactions</h4><p>Markets react to the surprise, not the number. If inflation comes in at 3% when 3% was expected, price may barely move.</p></div>
+<div class="topic"><h4>Risk events</h4><p>Elections, wars, and central banks stepping in to buy or sell their own currency can override every chart.</p></div>
+<div class="topic"><h4>Currency crosses</h4><p>Pairs without the US dollar, like EUR/JPY or GBP/AUD. They often have wider spreads and can move more sharply.</p></div>
+<div class="topic"><h4>Trading the news</h4><p>Spreads widen and price can jump past your stop at release times. Many traders simply stay out for the minutes around big releases.</p></div>
+<div class="topic"><h4>Sentiment</h4><p>Positioning reports (like the COT report) and broker data show which way traders lean. When almost everyone is on one side, reversals can be sharp.</p></div>
+</div>
+<div class="lab"><h4>Carry trade estimate</h4>
+<p class="muted" style="font-size:.95rem">Holding a currency with a higher interest rate against a lower one can earn a small daily payment (a positive swap). A price move against you can wipe it out in minutes.</p>
+<div class="grid3">
+<div class="field"><label for="cy-lots">Trade size (lots)</label><input id="cy-lots" type="number" min="0.01" step="0.01" value="0.10"></div>
+<div class="field"><label for="cy-diff">Interest rate difference (%)</label><input id="cy-diff" type="number" step="0.1" value="3"></div>
+<div class="field"><label for="cy-days">Days held</label><input id="cy-days" type="number" min="1" step="1" value="30"></div>
+</div>
+<div class="out">
+<div><small>Per day (approx.)</small><strong id="cy-day">$0.82</strong></div>
+<div><small>Over the period</small><strong id="cy-tot">$24.66</strong></div>
+<div><small>Equal to a move of</small><strong id="cy-pips">25 pips</strong></div>
+</div>
+<p class="muted" style="font-size:.92rem">Rough estimate on $10,000 per 0.10 lot. Brokers' actual swap rates are lower and differ by broker.</p>
+</div>
+<div class="src"><span class="chip prem">BabyPips Premium</span><a href="https://www.babypips.com/learn/forex/undergraduate-freshman" target="_blank" rel="noopener">BabyPips: Freshman</a></div>
+</div></details>
+
+<details class="mod" data-mod="8"><summary><span class="n">8</span><span class="t"><b>The bigger picture</b><span>The US Dollar Index, other markets, risk-on and risk-off, global money flows</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>US Dollar Index (DXY)</h4><p>Measures the dollar against a basket of major currencies, mostly the euro. If DXY is rising, most USD pairs are moving the same way, which tells you whether a move is about the dollar or the other currency.</p></div>
+<div class="topic"><h4>Commodities</h4><p>Some currencies follow what their country exports. The Canadian dollar tends to track oil; the Australian dollar tends to track metals like gold and iron ore.</p></div>
+<div class="topic"><h4>Stocks and bonds</h4><p>Rising bond yields in a country tend to support its currency. Stock markets show the general mood of investors.</p></div>
+<div class="topic"><h4>Risk-on, risk-off</h4><p>When investors feel confident, money flows to higher-yielding currencies. When they're scared, it flows to safe havens like the Japanese yen, Swiss franc and US dollar.</p></div>
+<div class="topic"><h4>Country profiles</h4><p>Know the basics for each currency you trade: its central bank, its main exports, and the data releases that move it.</p></div>
+<div class="topic"><h4>Market narratives</h4><p>At any time, markets focus on one or two big stories (inflation, a recession scare). The same data can move prices very differently depending on the story of the month.</p></div>
+</div>
+<div class="src"><span class="chip prem">BabyPips Premium</span><a href="https://www.babypips.com/learn/forex/undergraduate-sophomore" target="_blank" rel="noopener">BabyPips: Sophomore</a></div>
+</div></details>
+
+<details class="mod" data-mod="9"><summary><span class="n">9</span><span class="t"><b>Your trading plan and system</b><span>Find your trading style, write your plan, build and test a system, keep a journal</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="lab"><h4>Which trading style fits your life?</h4>
+<form class="quiz" id="qz">
+<fieldset><legend>How much time can you watch charts on a workday?</legend>
+<label><input type="radio" name="q1" value="position"> Only a few minutes</label>
+<label><input type="radio" name="q1" value="swing"> About 30–60 minutes, mostly evenings</label>
+<label><input type="radio" name="q1" value="day"> A few hours</label>
+<label><input type="radio" name="q1" value="scalp"> Most of the day</label></fieldset>
+<fieldset><legend>How long would you be comfortable holding a trade?</legend>
+<label><input type="radio" name="q2" value="scalp"> Minutes</label>
+<label><input type="radio" name="q2" value="day"> Hours, closed by bedtime</label>
+<label><input type="radio" name="q2" value="swing"> A few days</label>
+<label><input type="radio" name="q2" value="position"> Weeks or longer</label></fieldset>
+<fieldset><legend>How do you handle fast decisions under pressure?</legend>
+<label><input type="radio" name="q3" value="scalp"> I enjoy it</label>
+<label><input type="radio" name="q3" value="day"> I'm okay with it</label>
+<label><input type="radio" name="q3" value="swing"> I'd rather think it through</label>
+<label><input type="radio" name="q3" value="position"> I avoid it</label></fieldset>
+</form>
+<div class="note" id="qz-out" style="background:var(--surface);color:var(--ink)">Answer the three questions to see a suggested style.</div>
+</div>
+<div class="topics">
+<div class="topic"><h4>Building a system</h4><p>Define exact rules for which pairs, which timeframe, what setup, where you enter, where your stop goes and where you exit. If two people can't follow your rules and take the same trades, they aren't exact enough.</p></div>
+<div class="topic"><h4>Testing it</h4><p>Backtest by going back through old charts and recording every trade your rules would have taken. Then forward-test on demo. At least 50 trades of each before you trust it.</p></div>
+<div class="topic"><h4>The journal</h4><p>For every trade: date, pair, setup, entry, stop, target, result in R, a screenshot, and how you felt. Review it weekly to find mistakes that repeat.</p></div>
+<div class="topic"><h4>Know yourself</h4><p>Impatient people struggle with slow strategies; anxious people struggle with fast ones. Choose a style that suits your temperament and your schedule.</p></div>
+</div>
+<div class="lab"><h4>Trading plan builder</h4>
+<p class="muted" style="font-size:.95rem">Fill this in and keep it next to your screen. It's saved in this browser.</p>
+<div class="grid2" id="tp-form">
+<div class="field"><label for="tp-pairs">Pairs I trade</label><input id="tp-pairs" type="text" value="EUR/USD only"></div>
+<div class="field"><label for="tp-tf">Timeframes</label><input id="tp-tf" type="text" value="Daily for direction, 4-hour for entries"></div>
+<div class="field"><label for="tp-strat">Strategy</label><input id="tp-strat" type="text" value="Trend pullback to the 20 EMA"></div>
+<div class="field"><label for="tp-entry">Entry rule</label><input id="tp-entry" type="text" value="Bullish candle closes after touching the EMA, in the daily trend's direction"></div>
+<div class="field"><label for="tp-stop">Stop-loss rule</label><input id="tp-stop" type="text" value="A few pips below the pullback low"></div>
+<div class="field"><label for="tp-exit">Exit rule</label><input id="tp-exit" type="text" value="Take profit at 2R"></div>
+<div class="field"><label for="tp-risk">Risk per trade (%)</label><input id="tp-risk" type="number" min="0.1" max="5" step="0.1" value="1"></div>
+<div class="field"><label for="tp-max">Stop for the day after this many losses</label><input id="tp-max" type="number" min="1" max="10" step="1" value="2"></div>
+<div class="field"><label for="tp-when">When I trade (Manila time)</label><input id="tp-when" type="text" value="Weekday evenings, 8–11 PM"></div>
+<div class="field"><label for="tp-review">Journal review</label><input id="tp-review" type="text" value="Every Sunday"></div>
+</div>
+<pre class="plan" id="tp-out"></pre>
+<div class="row"><button class="btn" id="tp-copy" type="button">Copy plan</button><span class="muted" id="tp-msg" aria-live="polite"></span></div>
+</div>
+<div class="src"><span class="chip prem">BabyPips Premium</span><a href="https://www.babypips.com/learn/forex/undergraduate-junior" target="_blank" rel="noopener">BabyPips: Junior</a></div>
+</div></details>
+
+<details class="mod" data-mod="10"><summary><span class="n">10</span><span class="t"><b>Risk management</b><span>Leverage, position sizing, stop placement, scaling, correlations</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Leverage without blowing up</h4><p>What matters is how much you risk per trade, not the leverage your broker offers. Keep total open risk small, even if the platform lets you open far more.</p></div>
+<div class="topic"><h4>Position sizing</h4><p>Decide your risk in dollars first, then size the trade to fit your stop distance. The position size calculator below does this for you.</p></div>
+<div class="topic"><h4>Placing stops</h4><p>Put stops where your idea is proven wrong: beyond a support or resistance level, or a multiple of the ATR away. Never just a round number of pips that feels comfortable.</p></div>
+<div class="topic"><h4>Scaling in and out</h4><p>Taking partial profit at a first target and letting the rest run, or adding to a winner. Never add to a losing trade to "average down".</p></div>
+<div class="topic"><h4>Moving stops</h4><p>Moving your stop to breakeven or trailing it behind price can lock in gains. Moving it further away to avoid a loss is one of the fastest ways to blow an account.</p></div>
+<div class="topic"><h4>Correlations</h4><p>Pairs that move together multiply your risk. Buying EUR/USD and GBP/USD at the same time is close to one big trade.</p></div>
+</div>
+<div class="tblwrap"><table class="tbl">
+<tr><th>Pairs</th><th>Usually move</th><th>What it means for you</th></tr>
+<tr><td>EUR/USD and GBP/USD</td><td>Together</td><td>Two buys is nearly double the risk</td></tr>
+<tr><td>EUR/USD and USD/CHF</td><td>Opposite</td><td>Buying both mostly cancels out</td></tr>
+<tr><td>AUD/USD and NZD/USD</td><td>Together</td><td>Treat as one position</td></tr>
+<tr><td>USD/CAD and oil prices</td><td>Opposite</td><td>Rising oil often weakens USD/CAD</td></tr>
+</table></div>
+<p class="muted" style="font-size:.92rem">Correlations change over time. Check them on a correlation tool before stacking trades.</p>
+<div class="src"><span class="chip prem">BabyPips Premium</span><a href="https://www.babypips.com/learn/forex/undergraduate-senior" target="_blank" rel="noopener">BabyPips: Senior</a></div>
+</div></details>
+
+<details class="mod" data-mod="11"><summary><span class="n">11</span><span class="t"><b>Graduation</b><span>Prop firms, scams, and the most common beginner mistakes</span></span><span class="chev">›</span></summary>
+<div class="mod-body">
+<div class="topics">
+<div class="topic"><h4>Prop trading firms</h4><p>You pay a fee to take a trading challenge; pass and you trade the firm's money for a share of profits. Many traders fail and pay again, and some firms have shut down suddenly. Read the rules closely and treat the fee as money you may lose.</p></div>
+<div class="topic"><h4>Common scams</h4><p>Guaranteed returns, "account managers" who trade for you, signal groups that push a broker, fake withdrawal fees, and recruitment schemes dressed up as training.</p></div>
+</div>
+<div class="lab"><h4>The most common beginner mistakes</h4>
+<div class="tblwrap"><table class="tbl">
+<tr><th>Mistake</th><th>What to do instead</th></tr>
+<tr><td>Trading real money too soon</td><td>Follow the 90-day demo plan and readiness check</td></tr>
+<tr><td>Risking too much per trade</td><td>1–2% maximum, sized with the calculator</td></tr>
+<tr><td>No stop-loss, or moving it away</td><td>Set it before entry and never widen it</td></tr>
+<tr><td>Strategy hopping after a few losses</td><td>Test one system for at least 50 trades</td></tr>
+<tr><td>Revenge trading after a loss</td><td>A daily loss limit, then stop for the day</td></tr>
+<tr><td>Overtrading out of boredom</td><td>Only trade setups written in your plan</td></tr>
+<tr><td>Trading right at big news</td><td>Check the calendar and stay out around releases</td></tr>
+<tr><td>Not keeping a journal</td><td>Log every trade and review weekly</td></tr>
+</table></div>
+</div>
+<div class="src"><span class="chip prem">BabyPips Premium</span><a href="https://www.babypips.com/learn/forex/graduation" target="_blank" rel="noopener">BabyPips: Graduation</a></div>
+</div></details>
+
+</div>
+</section>
+
+<section class="block" id="basics">
+<div class="head"><p class="eyebrow">Stage 1 · Learn</p><h2>The basics in one screen</h2>
+<p class="muted">Everything below uses EUR/USD as the example. Prices are quoted to four decimals.</p></div>
+<div class="facts">
+<div class="fact"><span class="k">EUR/USD 1.1000</span><span>One euro costs 1.10 US dollars. Buy if you expect the euro to strengthen, sell if you expect it to weaken.</span></div>
+<div class="fact"><span class="k">1 pip = 0.0001</span><span>The smallest standard move. 1.1000 to 1.1001 is one pip.</span></div>
+<div class="fact"><span class="k">0.01 lot ≈ $0.10/pip</span><span>A micro lot. A standard lot (1.00) is about $10 per pip. Start with micro lots.</span></div>
+<div class="fact"><span class="k">Spread</span><span>The gap between buy and sell prices. You start every trade slightly negative.</span></div>
+</div>
+<div class="panel">
+<div class="head"><h3>Leverage simulator</h3><p class="muted">Move the price and see what leverage does to a small deposit.</p></div>
+<div class="grid3">
+<div class="field"><label for="lv-dep">Your deposit (USD)</label><input id="lv-dep" type="number" min="10" step="10" value="100"></div>
+<div class="field"><label for="lv-lev">Leverage</label><select id="lv-lev"><option value="1">1:1 (none)</option><option value="10">10:1</option><option value="30">30:1</option><option value="50">50:1</option><option value="100" selected>100:1</option><option value="200">200:1</option><option value="500">500:1</option></select></div>
+<div class="field"><label for="lv-move">Price move: <span id="lv-move-v" class="num">−1.0%</span></label><input id="lv-move" type="range" min="-3" max="3" step="0.1" value="-1"></div>
+</div>
+<div class="out">
+<div><small>Position you control</small><strong id="lv-pos">$10,000</strong></div>
+<div><small>Profit or loss</small><strong id="lv-pl">−$100</strong></div>
+<div><small>Account after</small><strong id="lv-after">$0</strong></div>
+<div><small>Change to your money</small><strong id="lv-pct">−100%</strong></div>
+</div>
+<div class="meter" aria-hidden="true"><span id="lv-bar"></span></div>
+<p class="muted" style="font-size:.95rem">Brokers usually close your trades automatically (a "margin call" or "stop out") before your account reaches zero. Currencies often move 0.5–1% in a day.</p>
+</div>
+</section>
+
+<section class="block" id="charts">
+<div class="head"><p class="eyebrow">Stage 1 · Learn</p><h2>How a candle forms</h2>
+<p class="muted">On the left, every price tick in one period. On the right, the single candle that summarizes it. Each candle on a chart is one of these.</p></div>
+<div class="panel">
+<canvas id="cv-candle" class="cv-candle" role="img" aria-label="Animation of price ticks forming one candlestick with open, high, low and close labelled"></canvas>
+<div class="legend"><span><i style="background:var(--up)"></i>Up candle: closed above its open</span><span><i style="background:var(--down)"></i>Down candle: closed below its open</span></div>
+</div>
+<div class="grid3">
+<div class="panel"><h3>Support</h3><p class="muted">A price zone where buying has repeatedly stopped a fall. A floor, until it breaks.</p></div>
+<div class="panel"><h3>Resistance</h3><p class="muted">A zone where selling has repeatedly stopped a rise. Once broken, it often becomes support.</p></div>
+<div class="panel"><h3>Trend</h3><p class="muted">Higher highs and higher lows mean up. Lower highs and lower lows mean down. No pattern means a range.</p></div>
+</div>
+</section>
+
+<section class="block" id="strategies">
+<div class="head"><p class="eyebrow">Stage 2 · Practice</p><h2>Four common strategies, played out</h2>
+<p class="muted">Pick one and practice only that one on demo. Every strategy below loses regularly. Watch both outcomes: the losing replay is part of the lesson.</p></div>
+<div class="panel">
+<div class="row" style="justify-content:space-between">
+<div class="seg" role="tablist" aria-label="Strategy" id="st-tabs">
+<button role="tab" data-s="pullback" aria-selected="true">Trend pullback</button>
+<button role="tab" data-s="breakout" aria-selected="false">Breakout</button>
+<button role="tab" data-s="range" aria-selected="false">Range</button>
+<button role="tab" data-s="cross" aria-selected="false">MA crossover</button>
+</div>
+<div class="row">
+<div class="seg" aria-label="Outcome" id="st-out">
+<button data-o="win" aria-pressed="true">Winning trade</button>
+<button data-o="fail" aria-pressed="false">Losing trade</button>
+</div>
+<button class="btn" id="st-replay" type="button">Replay</button>
+</div>
+</div>
+<canvas id="cv-strat" class="cv-strat" role="img" aria-label="Animated price chart showing the selected strategy's entry, stop-loss and target"></canvas>
+<div class="legend" id="st-legend"></div>
+<div class="status" id="st-status" aria-live="polite"></div>
+<div class="grid2">
+<div><h3 id="st-name">Trend pullback</h3><p class="muted" id="st-idea" style="margin-top:6px"></p></div>
+<ul class="rules" id="st-rules"></ul>
+</div>
+</div>
+<p class="note"><b>R</b> means "units of risk". Losing your planned stop is −1R. A +2R win makes twice what you risked. With 2R targets, you can be right only 40% of the time and still come out ahead before costs. Being right 25% of the time loses money.</p>
+</section>
+
+<section class="block" id="tools">
+<div class="head"><p class="eyebrow">Stage 2 · Practice</p><h2>Risk tools</h2>
+<p class="muted">Use these before every demo trade. Position size is what keeps one bad trade from ending your account.</p></div>
+<div class="grid2">
+<div class="panel">
+<h3>Position size calculator</h3>
+<div class="grid2">
+<div class="field"><label for="ps-bal">Account balance (USD)</label><input id="ps-bal" type="number" min="10" step="10" value="500"></div>
+<div class="field"><label for="ps-risk">Risk per trade (%)</label><input id="ps-risk" type="number" min="0.1" max="10" step="0.1" value="1"></div>
+<div class="field"><label for="ps-stop">Stop-loss distance (pips)</label><input id="ps-stop" type="number" min="1" step="1" value="20"></div>
+<div class="field"><label for="ps-pair">Pair</label><select id="ps-pair"><option>EUR/USD</option><option>GBP/USD</option><option>AUD/USD</option></select></div>
+</div>
+<div class="out">
+<div><small>Max you can lose</small><strong id="ps-amt">$5.00</strong></div>
+<div><small>Lot size</small><strong id="ps-lots">0.02</strong></div>
+<div><small>Actual risk</small><strong id="ps-act">$4.00</strong></div>
+</div>
+<p class="muted" style="font-size:.95rem">For pairs ending in USD, 1 standard lot ≈ $10 per pip. Platforms trade in steps of 0.01, so the size is rounded down.</p>
+</div>
+<div class="panel">
+<h3>Losing-streak test</h3>
+<div class="field"><label for="ls-risk">Risk per trade: <span id="ls-risk-v" class="num">2%</span></label><input id="ls-risk" type="range" min="1" max="25" step="1" value="2"></div>
+<div class="field"><label for="ls-n">Losses in a row: <span id="ls-n-v" class="num">8</span></label><input id="ls-n" type="range" min="2" max="15" step="1" value="8"></div>
+<div class="bars" id="ls-bars" aria-hidden="true"></div>
+<div class="out">
+<div><small>Account left</small><strong id="ls-left">85%</strong></div>
+<div><small>Gain needed to recover</small><strong id="ls-rec">+18%</strong></div>
+</div>
+<p class="muted" style="font-size:.95rem">Losing streaks of 8 or more happen even with decent strategies. Try 10% risk to see why small risk matters.</p>
+</div>
+</div>
+</section>
+
+<section class="block" id="sessions">
+<div class="head"><p class="eyebrow">Stage 2 · Practice</p><h2>Market hours in Philippine time</h2>
+<p class="muted">Calculated live from each city's clock, including daylight saving.</p></div>
+<div class="panel">
+<div class="row" style="justify-content:space-between">
+<div><small class="muted">Now in Manila</small><div class="clock" id="ss-clock">--:--</div></div>
+<div class="row" id="ss-chips"></div>
+</div>
+<div class="timeline" id="ss-line" aria-label="Trading sessions on a 24-hour Philippine-time timeline"></div>
+<p id="ss-note" class="muted"></p>
+</div>
+</section>
+
+<section class="block" id="platforms">
+<div class="head"><p class="eyebrow">Stage 1–2 · Tools you'll use</p><h2>Platforms and free resources</h2>
+<p class="muted">All of these have free versions. You don't need to pay anyone to start learning or practicing.</p></div>
+<div class="grid3">
+<div class="panel plat"><span class="tag">Charts + paper trading</span><h3>TradingView</h3><p class="muted">Browser and phone charts with indicators and drawing tools. Its paper trading lets you practice with no broker at all.</p><a href="https://www.tradingview.com" target="_blank" rel="noopener">tradingview.com</a></div>
+<div class="panel plat"><span class="tag">Trading platform</span><h3>MetaTrader 4</h3><p class="muted">The platform most forex seminars teach on. You get a free demo account through a broker.</p><a href="https://www.metatrader4.com" target="_blank" rel="noopener">metatrader4.com</a></div>
+<div class="panel plat"><span class="tag">Trading platform</span><h3>MetaTrader 5</h3><p class="muted">The newer version, with more timeframes and order types. Same demo-account approach.</p><a href="https://www.metatrader5.com" target="_blank" rel="noopener">metatrader5.com</a></div>
+<div class="panel plat"><span class="tag">Trading platform</span><h3>cTrader</h3><p class="muted">An alternative to MetaTrader with a cleaner layout, offered by some brokers with free demos.</p><a href="https://www.ctrader.com" target="_blank" rel="noopener">ctrader.com</a></div>
+<div class="panel plat"><span class="tag">Free course</span><h3>BabyPips</h3><p class="muted">The School of Pipsology covers everything a paid intro seminar does, step by step, at no cost.</p><a href="https://www.babypips.com/learn/forex" target="_blank" rel="noopener">babypips.com/learn/forex</a></div>
+<div class="panel plat"><span class="tag">News calendar</span><h3>Forex Factory</h3><p class="muted">An economic calendar showing when rate decisions, inflation and jobs reports come out.</p><a href="https://www.forexfactory.com/calendar" target="_blank" rel="noopener">forexfactory.com/calendar</a></div>
+</div>
+<p class="note"><b>About brokers:</b> the Philippine SEC does not register forex brokers, so you'd be using an offshore broker with little local legal protection. If you ever go live, check that the broker is licensed by a strong regulator in its home country, and never use a broker a coach requires or earns commission from.</p>
+</section>
+
+<section class="block" id="plan">
+<div class="head"><p class="eyebrow">The whole path</p><h2>The 90-day plan</h2>
+<p class="muted">A suggested schedule. Going slower is fine. Going faster usually costs money.</p></div>
+<div class="panel">
+<ul class="weeks">
+<li><span class="when">Weeks 1–2</span><div><b>Learn the language</b><ul><li>Course modules 1–2: pairs, pips, lots, leverage, margin, spreads, order types</li><li>Open a free TradingView account and a free MT4 or MT5 demo</li></ul></div></li>
+<li><span class="when">Weeks 3–4</span><div><b>Learn to read the market</b><ul><li>Course modules 3–4: candles, support and resistance, Fibonacci, one or two indicators, chart patterns</li><li>Mark levels on daily EUR/USD charts every day, without trading</li></ul></div></li>
+<li><span class="when">Weeks 5–12</span><div><b>Practice one strategy on demo</b><ul><li>Choose one strategy from the strategy replays above and write it into the plan builder (module 9)</li>
+<li>Read modules 6, 7 and 10 alongside your practice; save module 5 and 8 for later</li><li>Risk 1% per trade using the position size calculator</li><li>Log every trade: setup, entry, stop, target, result, and how you felt</li><li>Every Sunday, review the week's journal</li></ul></div></li>
+<li><span class="when">Day 90</span><div><b>Take the readiness check</b><ul><li>Be honest. Failing it means more practice, not a bad trader.</li></ul></div></li>
+<li><span class="when">After passing</span><div><b>Start small</b><ul><li>A live account with money you can afford to lose completely</li><li>Micro lots, same rules, same journal</li><li>Compare live results to demo for 3 months before adding more money</li></ul></div></li>
+</ul>
+</div>
+</section>
+
+<section class="block" id="ready">
+<div class="head"><p class="eyebrow">Stage 3 · Prove</p><h2>Am I ready for real money?</h2>
+<p class="muted">Suggested minimums. Tick only what's actually true. Your answers stay in this browser.</p></div>
+<div class="panel">
+<div class="row" style="justify-content:space-between"><b id="rd-label">0 of 8 done</b><span class="chip" id="rd-chip">Keep practicing</span></div>
+<div class="ready-meter"><span id="rd-bar" style="width:0%"></span></div>
+<div class="checks" id="rd-list"></div>
+</div>
+<div class="panel">
+<h3>Walk away if a coach or group…</h3>
+<ul class="flags">
+<li>promises income, returns, or "financial freedom" by a date</li>
+<li>requires you to use a specific broker</li>
+<li>pays you for recruiting other students</li>
+<li>won't show the full price until after a free seminar</li>
+<li>offers to trade your money for you</li>
+</ul>
+<p class="muted">Before paying anyone, search their name on <a href="https://www.sec.gov.ph" target="_blank" rel="noopener">sec.gov.ph</a> for advisories.</p>
+</div>
+</section>
+
+<footer>
+<p>For learning only. This is not financial advice. Most retail forex traders lose money, and leverage can lose you more than you expect.</p>
+</footer>
+</main>
+
+<script>
+(function(){
+const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const root = document.documentElement;
+let C = {};
+function readColors(){
+  const s = getComputedStyle(root);
+  ['ink','muted','line','grid','up','down','accent','ma','ma2','surface','sunk'].forEach(k=>C[k]=s.getPropertyValue('--'+k).trim());
+}
+readColors();
+const redrawers = [];
+function onTheme(){ readColors(); redrawers.forEach(f=>f()); }
+try{ window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', onTheme); }catch(e){}
+new MutationObserver(onTheme).observe(root,{attributes:true,attributeFilter:['data-theme']});
+
+function setup(cv){
+  const r = cv.getBoundingClientRect(), d = window.devicePixelRatio||1;
+  cv.width = Math.max(1, Math.round(r.width*d)); cv.height = Math.max(1, Math.round(r.height*d));
+  const ctx = cv.getContext('2d'); ctx.setTransform(d,0,0,d,0,0);
+  return {ctx, w:r.width, h:r.height};
+}
+const money = v => (v<0?'−':'') + '$' + Math.abs(v).toLocaleString('en-US',{maximumFractionDigits:2, minimumFractionDigits: Math.abs(v)<100 && v%1 ? 2:0});
+const money2 = v => (v<0?'−':'') + '$' + Math.abs(v).toFixed(2);
+
+/* ---------- rail highlight ---------- */
+const links = [...document.querySelectorAll('#rail a')];
+const ids = links.map(a=>a.getAttribute('href').slice(1));
+function railUpdate(){
+  let cur = ids[0];
+  for(const id of ids){ const el = document.getElementById(id); if(el && el.getBoundingClientRect().top < 120) cur = id; }
+  links.forEach(a=>a.classList.toggle('on', a.getAttribute('href')==='#'+cur));
+}
+window.addEventListener('scroll', railUpdate, {passive:true}); railUpdate();
+
+/* ---------- leverage ---------- */
+const lv = {dep:$('lv-dep'), lev:$('lv-lev'), move:$('lv-move')};
+function $(id){return document.getElementById(id)}
+function lvCalc(){
+  const dep = Math.max(0, +lv.dep.value||0), lev = +lv.lev.value, mv = +lv.move.value;
+  const pos = dep*lev, pl = pos*mv/100, after = Math.max(0, dep+pl), pct = dep? (after-dep)/dep*100 : 0;
+  $('lv-move-v').textContent = (mv>0?'+':mv<0?'−':'') + Math.abs(mv).toFixed(1) + '%';
+  $('lv-pos').textContent = money(pos);
+  const plEl = $('lv-pl'); plEl.textContent = (pl>0?'+':'') + money(pl); plEl.className = pl>=0?'pos':'neg';
+  $('lv-after').textContent = money(after);
+  const pe = $('lv-pct'); pe.textContent = (pct>0?'+':pct<0?'−':'') + Math.abs(pct).toFixed(0) + '%' + (after===0 && dep>0 ? ' (wiped out)':'');
+  pe.className = pct>=0?'pos':'neg';
+  const bar = $('lv-bar'); const w = Math.min(100, dep? after/dep*50 : 0);
+  bar.style.width = w + '%'; bar.style.backgroundColor = pct>=0 ? C.up : C.down;
+}
+['input','change'].forEach(ev=>Object.values(lv).forEach(el=>el.addEventListener(ev,lvCalc)));
+lvCalc(); redrawers.push(lvCalc);
+
+/* ---------- candle formation ---------- */
+(function(){
+  const cv = $('cv-candle'); let S, ticks=[], seed=7, timer=null, done=false;
+  function rnd(){ seed = (seed*16807)%2147483647; return seed/2147483647; }
+  function reset(){ ticks=[1.1000]; done=false; }
+  function step(){
+    if(ticks.length>=48){ done=true; draw(); clearInterval(timer); timer=setTimeout(()=>{reset(); start();}, 2200); return; }
+    const last = ticks[ticks.length-1]; ticks.push(+(last + (rnd()-0.48)*0.0006).toFixed(5)); draw();
+  }
+  function start(){ timer = setInterval(step, 110); }
+  function draw(){
+    S = setup(cv); const {ctx,w,h} = S; ctx.clearRect(0,0,w,h);
+    const o=ticks[0], c=ticks[ticks.length-1], hi=Math.max(...ticks), lo=Math.min(...ticks);
+    const top = 24, bot = h-24, span = Math.max(0.0012, hi-lo)*1.25, mid=(hi+lo)/2;
+    const y = v => bot - (v-(mid-span/2))/span*(bot-top);
+    const split = Math.min(w*0.55, w-210), up = c>=o, col = up?C.up:C.down;
+    // tick line
+    ctx.strokeStyle = C.grid; ctx.lineWidth=1;
+    for(let i=0;i<5;i++){ const yy = top+i*(bot-top)/4; ctx.beginPath(); ctx.moveTo(12,yy); ctx.lineTo(w-12,yy); ctx.stroke(); }
+    ctx.strokeStyle = C.ink; ctx.lineWidth=2; ctx.beginPath();
+    ticks.forEach((v,i)=>{ const x = 16 + i/47*(split-40); i?ctx.lineTo(x,y(v)):ctx.moveTo(x,y(v)); }); ctx.stroke();
+    ctx.fillStyle = C.muted; ctx.font = '600 12px "JetBrains Mono", monospace';
+    ctx.fillText(done?'Period closed':'Ticks this period…', 16, 16);
+    // candle
+    const cx = split + 40;
+    ctx.strokeStyle = col; ctx.lineWidth = 3; ctx.beginPath(); ctx.moveTo(cx, y(hi)); ctx.lineTo(cx, y(lo)); ctx.stroke();
+    ctx.fillStyle = col; const by = Math.min(y(o),y(c)), bh = Math.max(3, Math.abs(y(o)-y(c))); ctx.fillRect(cx-22, by, 44, bh);
+    // labels
+    const L = [['High',hi],['Open',o],['Close',c],['Low',lo]].sort((a,b)=>b[1]-a[1]);
+    let lastY = -99; ctx.font = '12px "JetBrains Mono", monospace';
+    L.forEach(([n,v])=>{ let yy = Math.max(y(v)+4, lastY+16); lastY = yy;
+      ctx.fillStyle = (n==='Open'||n==='Close')?C.ink:C.muted; ctx.fillText(n+' '+v.toFixed(4), cx+36, Math.min(yy, h-6)); });
+  }
+  reset();
+  if(reduce){ for(let i=0;i<47;i++){ const last=ticks[ticks.length-1]; ticks.push(+(last+(rnd()-0.48)*0.0006).toFixed(5)); } done=true; draw(); }
+  else start();
+  redrawers.push(()=>draw()); window.addEventListener('resize', ()=>draw());
+})();
+
+/* ---------- strategies ---------- */
+function rng(a){return function(){a|=0;a=a+0x6D2B79F5|0;let t=Math.imul(a^a>>>15,1|a);t=t+Math.imul(t^t>>>7,61|t)^t;return((t^t>>>14)>>>0)/4294967296}}
+function build(keys, seed, amp){
+  const N=120, r=rng(seed), out=[]; let nz=0;
+  for(let i=0;i<N;i++){
+    let k=0; while(k<keys.length-2 && keys[k+1][0]<=i) k++;
+    const [i0,v0]=keys[k], [i1,v1]=keys[k+1]; const t = Math.min(1, Math.max(0,(i-i0)/(i1-i0)));
+    nz = nz*0.55 + (r()-0.5)*2*amp; out.push(v0+(v1-v0)*t+nz);
+  }
+  return out;
+}
+function sma(a,p){ return a.map((_,i)=>{ if(i<p-1) return null; let s=0; for(let j=i-p+1;j<=i;j++) s+=a[j]; return s/p; }); }
+const px = v => (1.08 + v*0.0005).toFixed(4);
+const pips = d => Math.round(Math.abs(d)*5);
+
+const STRATS = {
+  pullback:{ name:'Trend pullback',
+    idea:'In an uptrend, wait for price to dip back to its moving average, then buy when it starts rising again. You join the trend at a better price instead of chasing it.',
+    rules:[['Setup','Price is making higher highs and higher lows, above a rising 15-period moving average.'],['Entry','Price pulls back to the average and closes higher again.'],['Stop','Just below the low of the pullback.'],['Target','Twice the distance to your stop (2R).'],['Fails when','The pullback turns out to be the start of a reversal and keeps falling.']],
+    mas:[[15,'ma','15-period moving average']], levels:[],
+    win:{keys:[[0,20],[30,55],[45,45],[52,44],[70,70],[90,82],[119,85]],seed:3,amp:1.1},
+    fail:{keys:[[0,20],[30,55],[45,45],[52,44],[60,46],[75,30],[119,25]],seed:5,amp:1.1},
+    entry:{type:'fixed',idx:55}, stop:{abs:38}, target:{r:2}, setupText:'Uptrend in place. Waiting for a pullback to the moving average…' },
+  breakout:{ name:'Breakout',
+    idea:'When price has been stuck in a range, buy when it finally closes above the ceiling. Breakouts often run because many traders were waiting for the same level.',
+    rules:[['Setup','Price has bounced between clear support and resistance several times.'],['Entry','A close above resistance.'],['Stop','Back inside the range, below the breakout level.'],['Target','The height of the range, added on top of resistance.'],['Fails when','It is a false breakout: price pops above, then falls back into the range.']],
+    mas:[], levels:[[60,'Resistance','down'],[42,'Support','up']],
+    win:{keys:[[0,45],[10,58],[20,43],[30,58],[40,43],[50,57],[60,44],[70,58],[76,65],[95,83],[119,85]],seed:11,amp:1},
+    fail:{keys:[[0,45],[10,58],[20,43],[30,58],[40,43],[50,57],[60,44],[70,58],[76,64],[82,56],[95,44],[119,40]],seed:13,amp:1},
+    entry:{type:'above',level:61.5,after:66}, stop:{abs:52}, target:{abs:78}, setupText:'Price is boxed between support and resistance. Waiting for a close above the ceiling…' },
+  range:{ name:'Range trading',
+    idea:'When price is bouncing between a floor and a ceiling with no trend, buy near the floor and take profit near the ceiling.',
+    rules:[['Setup','At least two clear touches of support and of resistance, with no trend.'],['Entry','Near support, after price shows it is bouncing.'],['Stop','A little below support.'],['Target','Just under resistance.'],['Fails when','Support breaks and a new downtrend starts.']],
+    mas:[], levels:[[65,'Resistance','down'],[35,'Support','up']],
+    win:{keys:[[0,60],[12,37],[24,63],[36,38],[48,62],[60,37],[72,50],[84,64],[100,58],[119,60]],seed:21,amp:1},
+    fail:{keys:[[0,60],[12,37],[24,63],[36,38],[48,62],[60,37],[66,41],[78,24],[119,18]],seed:23,amp:1},
+    entry:{type:'fixed',idx:63}, stop:{abs:30}, target:{abs:62}, setupText:'Price is ranging between support and resistance. Waiting for a bounce off support…' },
+  cross:{ name:'Moving-average crossover',
+    idea:'Use a fast and a slow moving average. Buy when the fast one crosses above the slow one, and get out when it crosses back below. Simple and mechanical, but it struggles when the market goes sideways.',
+    rules:[['Setup','A fast (6) and slow (20) moving average on the chart.'],['Entry','The fast average crosses above the slow one.'],['Stop','A fixed distance below entry, as a safety net.'],['Exit','When the fast average crosses back below the slow one.'],['Fails when','The market is choppy and the lines keep crossing, giving many small losses.']],
+    mas:[[6,'ma','Fast average (6)'],[20,'ma2','Slow average (20)']], levels:[],
+    win:{keys:[[0,40],[20,34],[35,38],[50,55],[80,76],[95,72],[105,60],[119,56]],seed:31,amp:1.1},
+    fail:{keys:[[0,45],[15,50],[25,43],[33,52],[43,42],[53,51],[63,41],[75,48],[88,39],[100,46],[119,42]],seed:33,amp:1.3},
+    entry:{type:'cross',after:24}, stop:{below:8}, target:null, exitCross:true, setupText:'Watching for the fast average to cross above the slow one…' }
+};
+
+const st = {key:'pullback', out:'win', t:0, raf:0, model:null};
+const cvS = $('cv-strat');
+function model(){
+  const s = STRATS[st.key], sc = s[st.out], p = build(sc.keys, sc.seed, sc.amp);
+  const mas = s.mas.map(([per,col,label])=>({per,col,label,v:sma(p,per)}));
+  let e = 0;
+  if(s.entry.type==='fixed') e = s.entry.idx;
+  else if(s.entry.type==='above'){ e = p.findIndex((v,i)=>i>s.entry.after && v>s.entry.level); if(e<0) e = s.entry.after+6; }
+  else { const f=mas[0].v, sl=mas[1].v; e = -1; for(let i=s.entry.after;i<p.length;i++){ if(f[i]!=null&&sl[i]!=null&&f[i-1]!=null&&sl[i-1]!=null&&f[i]>sl[i]&&f[i-1]<=sl[i-1]){e=i;break;} } if(e<0) e=40; }
+  const ep = p[e], stop = s.stop.abs!=null ? s.stop.abs : ep - s.stop.below;
+  const target = s.target ? (s.target.abs!=null ? s.target.abs : ep + s.target.r*(ep-stop)) : null;
+  let x = null;
+  for(let j=e+1;j<p.length;j++){
+    if(p[j]<=stop){ x={j,px:stop,kind:'stop'}; break; }
+    if(target!=null && p[j]>=target){ x={j,px:target,kind:'target'}; break; }
+    if(s.exitCross){ const f=mas[0].v, sl=mas[1].v; if(f[j]<sl[j] && f[j-1]>=sl[j-1]){ x={j,px:p[j],kind:'exit'}; break; } }
+  }
+  if(!x) x={j:p.length-1, px:p[p.length-1], kind:'open'};
+  const R = (x.px-ep)/(ep-stop);
+  return {s,p,mas,e,ep,stop,target,x,R};
+}
+function legend(m){
+  const items = ['<span><i style="background:'+C.ink+'"></i>Price</span>'];
+  m.mas.forEach(a=>items.push('<span><i style="background:'+C[a.col]+'"></i>'+a.label+'</span>'));
+  m.s.levels.forEach(l=>items.push('<span><i style="background:'+C.muted+'"></i>'+l[1]+'</span>'));
+  items.push('<span><i style="background:'+C.down+'"></i>Stop-loss</span>');
+  if(m.target!=null) items.push('<span><i style="background:'+C.up+'"></i>Target</span>');
+  $('st-legend').innerHTML = items.join('');
+}
+function drawStrat(){
+  const m = st.model; if(!m) return; const {ctx,w,h} = setup(cvS); ctx.clearRect(0,0,w,h);
+  const vals = m.p.concat([m.stop, m.target??m.stop], m.s.levels.map(l=>l[0]));
+  const lo = Math.min(...vals)-6, hi = Math.max(...vals)+6, L=14, Rg=w<520?70:96, T=16, B=h-16;
+  const X = i => L + i/(m.p.length-1)*(w-L-Rg), Y = v => B - (v-lo)/(hi-lo)*(B-T);
+  const t = st.t;
+  ctx.strokeStyle=C.grid; ctx.lineWidth=1;
+  for(let i=0;i<=4;i++){ const yy=T+i*(B-T)/4; ctx.beginPath(); ctx.moveTo(L,yy); ctx.lineTo(w-Rg,yy); ctx.stroke(); }
+  ctx.font='12px "JetBrains Mono", monospace';
+  m.s.levels.forEach(([v,label])=>{ ctx.strokeStyle=C.muted; ctx.setLineDash([6,5]); ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(L,Y(v)); ctx.lineTo(w-Rg,Y(v)); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle=C.muted; ctx.fillText(label, w-Rg+6, Y(v)+4); });
+  const upto = Math.floor(t);
+  m.mas.forEach(a=>{ ctx.strokeStyle=C[a.col]; ctx.lineWidth=2; ctx.beginPath(); let started=false;
+    for(let i=0;i<=upto;i++){ const v=a.v[i]; if(v==null) continue; started?ctx.lineTo(X(i),Y(v)):(ctx.moveTo(X(i),Y(v)),started=true); } ctx.stroke(); });
+  ctx.strokeStyle=C.ink; ctx.lineWidth=2.4; ctx.lineJoin='round'; ctx.beginPath();
+  for(let i=0;i<=upto;i++){ i?ctx.lineTo(X(i),Y(m.p[i])):ctx.moveTo(X(i),Y(m.p[i])); } ctx.stroke();
+  if(t>=m.e){
+    const endI = t>=m.x.j ? m.x.j : upto;
+    const seg=(v,col,label)=>{ ctx.strokeStyle=col; ctx.setLineDash([5,4]); ctx.lineWidth=2; ctx.beginPath(); ctx.moveTo(X(m.e),Y(v)); ctx.lineTo(w-Rg,Y(v)); ctx.stroke(); ctx.setLineDash([]); ctx.fillStyle=col; ctx.fillText(label, w-Rg+6, Y(v)+4); };
+    seg(m.stop, C.down, 'Stop '+px(m.stop));
+    if(m.target!=null) seg(m.target, C.up, 'Target '+px(m.target));
+    ctx.fillStyle=C.surface; ctx.strokeStyle=C.ink; ctx.lineWidth=2.5; ctx.beginPath(); ctx.arc(X(m.e),Y(m.ep),7,0,Math.PI*2); ctx.fill(); ctx.stroke();
+    ctx.fillStyle=C.ink; ctx.fillText('Entry', X(m.e)-18, Y(m.ep)+24);
+    if(t>=m.x.j){ const win=m.R>0, col=win?C.up:C.down; ctx.fillStyle=col; ctx.beginPath(); ctx.arc(X(m.x.j),Y(m.x.px),8,0,Math.PI*2); ctx.fill();
+      ctx.fillText(win?'Exit +':'Exit −', X(m.x.j)-24, Y(m.x.px)-14); }
+  }
+  // status
+  let s;
+  if(t<m.e) s = m.s.setupText;
+  else if(t<m.x.j) s = 'Entry at '+px(m.ep)+'. Stop '+px(m.stop)+' ('+pips(m.ep-m.stop)+' pips risk)'+(m.target!=null?', target '+px(m.target)+'.':'. Exit on the cross back down.');
+  else { const R=m.R, sign=R>=0?'+':'−';
+    const what = m.x.kind==='stop'?'Stopped out':m.x.kind==='target'?'Target hit':m.x.kind==='exit'?'Exit signal':'Still open';
+    s = what+' at '+px(m.x.px)+': '+sign+Math.abs(R).toFixed(1)+'R ('+sign+pips(m.x.px-m.ep)+' pips). '+(R<0?'This is a normal loss. The stop did its job.':'A planned win. Many trades in a row will not look like this.'); }
+  $('st-status').textContent = s;
+}
+function play(){
+  cancelAnimationFrame(st.raf); st.model = model(); legend(st.model);
+  const s = st.model.s; $('st-name').textContent = s.name; $('st-idea').textContent = s.idea;
+  $('st-rules').innerHTML = s.rules.map(([k,v])=>'<li'+(k==='Fails when'?' class="fail"':'')+'><b>'+k+'</b><span>'+v+'</span></li>').join('');
+  const end = st.model.p.length-1;
+  if(reduce){ st.t=end; drawStrat(); return; }
+  st.t=0; const t0=performance.now(), dur=6500;
+  const tick=now=>{ st.t = Math.min(end, (now-t0)/dur*end); drawStrat(); if(st.t<end) st.raf=requestAnimationFrame(tick); };
+  st.raf=requestAnimationFrame(tick);
+}
+$('st-tabs').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; st.key=b.dataset.s;
+  [...$('st-tabs').children].forEach(x=>x.setAttribute('aria-selected', x===b)); play(); });
+$('st-out').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; st.out=b.dataset.o;
+  [...$('st-out').children].forEach(x=>x.setAttribute('aria-pressed', x===b)); play(); });
+$('st-replay').addEventListener('click',play);
+redrawers.push(()=>{ if(st.model){ legend(st.model); drawStrat(); } });
+window.addEventListener('resize',()=>drawStrat());
+play();
+
+/* ---------- position size ---------- */
+function psCalc(){
+  const bal=+$('ps-bal').value||0, r=+$('ps-risk').value||0, sp=Math.max(1,+$('ps-stop').value||1);
+  const amt = bal*r/100, lots = amt/(sp*10), lotsR = Math.floor(lots*100)/100, act = lotsR*sp*10;
+  $('ps-amt').textContent = money2(amt);
+  $('ps-lots').textContent = lotsR>0 ? lotsR.toFixed(2) : 'Too small';
+  $('ps-act').textContent = lotsR>0 ? money2(act) : 'Widen account or risk';
+}
+['ps-bal','ps-risk','ps-stop','ps-pair'].forEach(id=>['input','change'].forEach(ev=>$(id).addEventListener(ev,psCalc))); psCalc();
+
+/* ---------- losing streak ---------- */
+function lsCalc(){
+  const r=+$('ls-risk').value/100, n=+$('ls-n').value; $('ls-risk-v').textContent=(r*100).toFixed(0)+'%'; $('ls-n-v').textContent=n;
+  const bars=$('ls-bars'); let html='<span style="height:100%"></span>';
+  for(let i=1;i<=n;i++) html+='<span style="height:'+(Math.pow(1-r,i)*100).toFixed(1)+'%"></span>';
+  bars.innerHTML=html;
+  const left=Math.pow(1-r,n); $('ls-left').textContent=(left*100).toFixed(0)+'%'; $('ls-rec').textContent='+'+((1/left-1)*100).toFixed(0)+'%';
+}
+['ls-risk','ls-n'].forEach(id=>$(id).addEventListener('input',lsCalc)); lsCalc();
+
+/* ---------- sessions ---------- */
+function tzOffsetMin(tz, d){
+  try{
+    const f = new Intl.DateTimeFormat('en-US',{timeZone:tz,hourCycle:'h23',year:'numeric',month:'2-digit',day:'2-digit',hour:'2-digit',minute:'2-digit'});
+    const p = Object.fromEntries(f.formatToParts(d).map(x=>[x.type,x.value]));
+    const asUTC = Date.UTC(+p.year, +p.month-1, +p.day, +p.hour%24, +p.minute);
+    return Math.round((asUTC - Math.floor(d.getTime()/60000)*60000)/60000);
+  }catch(e){ return null; }
+}
+const SESS=[{n:'Tokyo',tz:'Asia/Tokyo',start:9,fb:540,bg:'sunk-strong'},{n:'London',tz:'Europe/London',start:8,fb:60},{n:'New York',tz:'America/New_York',start:8,fb:-240}];
+const fmtH = h => { h=((h%24)+24)%24; const hh=Math.floor(h), mm=Math.round((h-hh)*60); const ap=hh<12?'AM':'PM'; const h12=hh%12===0?12:hh%12; return h12+(mm?':'+String(mm).padStart(2,'0'):'')+' '+ap; };
+function sessions(){
+  const now = new Date();
+  const phMin = (now.getUTCHours()*60 + now.getUTCMinutes() + 480) % 1440, phH = phMin/60;
+  const phDay = new Date(now.getTime()+480*60000).getUTCDay();
+  $('ss-clock').textContent = fmtH(phH);
+  const S = SESS.map(s=>{ const off = tzOffsetMin(s.tz, now) ?? s.fb; const st = ((s.start - off/60 + 8)%24+24)%24; return {...s, st, en:(st+9)%24}; });
+  const pos = h => (((h-6)%24+24)%24)/24*100;
+  const line=$('ss-line'); line.innerHTML='';
+  const lon=S[1], ny=S[2]; const ovS=ny.st, ovE=lon.en;
+  const ov=document.createElement('div'); ov.className='overlap'; ov.style.left=pos(ovS)+'%'; ov.style.width=(((ovE-ovS)%24+24)%24)/24*100+'%'; line.appendChild(ov);
+  const styles=[[C.sunk,C.ink,'1px solid '+C.line],[C.up,C.surface,'0'],[C.ink,C.surface,'0']];
+  S.forEach((s,i)=>{
+    const left=pos(s.st), width=9/24*100, parts = left+width>100 ? [[left,100-left],[0,left+width-100]] : [[left,width]];
+    parts.forEach(([l,wd],k)=>{ const b=document.createElement('div'); b.className='sess'; b.style.left=l+'%'; b.style.width=wd+'%'; b.style.top=(10+i*38)+'px';
+      b.style.background=i===0?C.surface:styles[i][0]; b.style.color=styles[i][1]; b.style.border=i===0?'1px solid '+C.line:'0';
+      b.textContent = k===0 ? s.n+' · '+fmtH(s.st)+'–'+fmtH(s.en) : ''; line.appendChild(b); });
+  });
+  const nw=document.createElement('div'); nw.className='now'; nw.style.left=pos(phH)+'%'; line.appendChild(nw);
+  const tk=document.createElement('div'); tk.className='ticks'; tk.innerHTML=[[6,'6 AM'],[12,'12 NN'],[18,'6 PM'],[0,'12 MN'],[6,'6 AM']].map(([h,l],i)=>'<span style="left:'+(i===4?100:pos(h))+'%">'+l+'</span>').join(''); line.appendChild(tk);
+  const nyClose = ny.en;
+  const weekend = (phDay===6 && phH>=nyClose) || phDay===0 || (phDay===1 && phH<nyClose);
+  const inS = s => { const d=((phH-s.st)%24+24)%24; return d<9; };
+  const chips = S.map(s=>{ const open=!weekend && inS(s); return '<span class="chip '+(open?'open':'')+'">'+s.n+' '+(open?'open':'closed')+'</span>'; });
+  if(weekend) chips.unshift('<span class="chip closed">Weekend: market closed</span>');
+  $('ss-chips').innerHTML = chips.join(' ');
+  $('ss-note').innerHTML = 'The shaded band is the London–New York overlap, about <b>'+fmtH(ovS)+' to '+fmtH(ovE)+'</b> in Manila, usually the busiest time. The market is closed from about '+fmtH(nyClose)+' Saturday to '+fmtH(nyClose)+' Monday, Manila time. Session hours are approximate.';
+}
+sessions(); setInterval(sessions, 30000); redrawers.push(sessions);
+
+/* ---------- readiness ---------- */
+const CHECKS=[
+ 'I finished a full beginner course (such as BabyPips) and can explain pips, lots, leverage and spreads',
+ 'I have written rules for one strategy: setup, entry, stop and target',
+ 'I logged at least 50 demo trades in my journal',
+ 'I used a stop-loss on every single demo trade',
+ 'I never risked more than 1–2% on a demo trade',
+ 'My demo account was profitable over the last 2–3 months, not just one good week',
+ 'My worst drawdown on demo was under about 10%',
+ 'The money I would start with is money I can afford to lose completely'];
+let saved={}; try{ saved=JSON.parse(localStorage.getItem('fx-ready')||'{}')||{}; }catch(e){ saved={}; }
+$('rd-list').innerHTML = CHECKS.map((c,i)=>'<label for="rd-'+i+'"><input type="checkbox" id="rd-'+i+'"'+(saved[i]?' checked':'')+'><span>'+c+'</span></label>').join('');
+function rd(){
+  let n=0; const st={}; CHECKS.forEach((_,i)=>{ const v=$('rd-'+i).checked; st[i]=v; if(v) n++; });
+  try{ localStorage.setItem('fx-ready', JSON.stringify(st)); }catch(e){}
+  $('rd-label').textContent = n+' of '+CHECKS.length+' done'; $('rd-bar').style.width=(n/CHECKS.length*100)+'%';
+  const chip=$('rd-chip'); if(n===CHECKS.length){ chip.textContent='Ready to start small'; chip.className='chip open'; } else { chip.textContent='Keep practicing on demo'; chip.className='chip closed'; }
+}
+$('rd-list').addEventListener('change', rd); rd();
+
+/* ================= COURSE MODULES ================= */
+const shown = cv => cv.getBoundingClientRect().width > 0;
+const rafs = {};
+function animate(key, end, dur, draw){
+  cancelAnimationFrame(rafs[key]);
+  if(reduce){ draw(end); return; }
+  const t0 = performance.now();
+  const tick = now => { const t = Math.min(end, (now-t0)/dur*end); draw(t); if(t<end) rafs[key]=requestAnimationFrame(tick); };
+  rafs[key] = requestAnimationFrame(tick);
+}
+function grid(ctx,L,R,T,B,n){ ctx.strokeStyle=C.grid; ctx.lineWidth=1; for(let i=0;i<=n;i++){ const y=T+i*(B-T)/n; ctx.beginPath(); ctx.moveTo(L,y); ctx.lineTo(R,y); ctx.stroke(); } }
+function hline(ctx,x1,x2,y,col,label,lx){ ctx.strokeStyle=col; ctx.setLineDash([6,5]); ctx.lineWidth=1.5; ctx.beginPath(); ctx.moveTo(x1,y); ctx.lineTo(x2,y); ctx.stroke(); ctx.setLineDash([]); if(label){ ctx.fillStyle=col; ctx.fillText(label, lx??x2+6, y+4); } }
+function pathLine(ctx,arr,upto,X,Y,col,w){ ctx.strokeStyle=col; ctx.lineWidth=w||2.2; ctx.lineJoin='round'; ctx.beginPath(); let s=false; for(let i=0;i<=upto&&i<arr.length;i++){ const v=arr[i]; if(v==null) continue; s?ctx.lineTo(X(i),Y(v)):(ctx.moveTo(X(i),Y(v)),s=true); } ctx.stroke(); }
+const MONO = '12px "JetBrains Mono", monospace';
+
+/* module 1: margin */
+function mgCalc(){
+  const bal=+$('mg-bal').value||0, lots=Math.max(0,+$('mg-lots').value||0), lev=+$('mg-lev').value;
+  const pos=lots*100000*1.1, used=pos/lev, free=bal-used, lvl=used?bal/used*100:0;
+  $('mg-pos').textContent=money(pos); $('mg-used').textContent=money2(used);
+  const f=$('mg-free'); f.textContent=money2(free); f.className=free>=0?'':'neg';
+  const l=$('mg-lvl'); l.textContent=used?Math.round(lvl)+'%':'—'; l.className=lvl<100&&used?'neg':'';
+  $('mg-note').textContent = !used ? '' : lvl<100 ? 'Below 100%: you could not even open this trade at most brokers. Reduce the size.'
+    : lvl<300 ? 'A thin cushion. A modest move against you could trigger a margin call. Margin calls often start at 100% and stop outs around 50%, depending on the broker.'
+    : 'Plenty of cushion for this size. Remember margin level only protects the broker; your stop-loss is what protects you.';
+}
+['mg-bal','mg-lots','mg-lev'].forEach(id=>['input','change'].forEach(ev=>$(id).addEventListener(ev,mgCalc))); mgCalc();
+
+/* module 2: chart types */
+const ctData=(()=>{ const r=rng(41); let p=1.1000; return Array.from({length:30},()=>{ const o=p; let h=o,l=o,c=o; for(let k=0;k<12;k++){ c+=(r()-0.48)*0.0007; h=Math.max(h,c); l=Math.min(l,c);} p=c; return {o,h,l,c}; }); })();
+let ctMode='candle';
+const CT_NOTES={line:'A line chart joins only the closing prices. Clean for spotting the overall direction, but it hides how far price swung inside each period.',
+ bar:'Each bar shows open (left tick), high, low and close (right tick). Same information as a candle, drawn more thinly.',
+ candle:'Candles show open, high, low and close, colored by direction. The most popular chart type, and what this course uses.'};
+function drawCt(){
+  const cv=$('cv-ctype'); if(!shown(cv)) return; const {ctx,w,h}=setup(cv); ctx.clearRect(0,0,w,h);
+  const lo=Math.min(...ctData.map(d=>d.l)), hi=Math.max(...ctData.map(d=>d.h)), L=14,R=w-70,T=14,B=h-14;
+  const X=i=>L+(i+0.5)/ctData.length*(R-L), Y=v=>B-(v-lo)/(hi-lo)*(B-T), bw=Math.max(3,(R-L)/ctData.length*0.55);
+  grid(ctx,L,R,T,B,4); ctx.font=MONO; ctx.fillStyle=C.muted;
+  [hi,(hi+lo)/2,lo].forEach(v=>ctx.fillText(v.toFixed(4),R+6,Y(v)+4));
+  if(ctMode==='line'){ pathLine(ctx,ctData.map(d=>d.c),99,X,Y,C.ink,2.4); }
+  else ctData.forEach((d,i)=>{ const col=d.c>=d.o?C.up:C.down; ctx.strokeStyle=col; ctx.fillStyle=col; ctx.lineWidth=ctMode==='bar'?2:1.5;
+    ctx.beginPath(); ctx.moveTo(X(i),Y(d.h)); ctx.lineTo(X(i),Y(d.l)); ctx.stroke();
+    if(ctMode==='bar'){ ctx.beginPath(); ctx.moveTo(X(i)-bw/2,Y(d.o)); ctx.lineTo(X(i),Y(d.o)); ctx.moveTo(X(i),Y(d.c)); ctx.lineTo(X(i)+bw/2,Y(d.c)); ctx.stroke(); }
+    else ctx.fillRect(X(i)-bw/2, Math.min(Y(d.o),Y(d.c)), bw, Math.max(1.5,Math.abs(Y(d.o)-Y(d.c)))); });
+  $('ct-note').textContent=CT_NOTES[ctMode];
+}
+$('ct-seg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; ctMode=b.dataset.m; [...$('ct-seg').children].forEach(x=>x.setAttribute('aria-pressed',x===b)); drawCt(); });
+
+/* module 3: fibonacci */
+let fbF=0.618;
+function fibModel(){ const H=80,Lw=20, tgt=H-fbF*(H-Lw); const keys=[[0,32],[10,20],[50,80],[76,tgt],[119,fbF>1?6:96]]; return {p:build(keys,61,0.55),H,Lw}; }
+let fbM=null;
+function drawFib(t){
+  const cv=$('cv-fib'); if(!shown(cv)||!fbM) return; const {ctx,w,h}=setup(cv); ctx.clearRect(0,0,w,h);
+  const lo=0,hi=100,L=14,R=w-(w<520?118:140),T=12,B=h-12, X=i=>L+i/119*(R-L), Y=v=>B-(v-lo)/(hi-lo)*(B-T);
+  grid(ctx,L,R,T,B,4); ctx.font=MONO;
+  const lv=[0,0.236,0.382,0.5,0.618,0.786,1];
+  if(t>=50) lv.forEach(f=>{ const v=fbM.H-f*(fbM.H-fbM.Lw); const sel=Math.abs(f-fbF)<0.001; hline(ctx,X(50),R,Y(v),sel?C.accent:C.muted,(f*100).toFixed(1)+'% '+px(v)); });
+  pathLine(ctx,fbM.p,Math.floor(t),X,Y,C.ink,2.4);
+  ctx.fillStyle=C.muted; ctx.fillText('Swing low',X(10)-20,Y(fbM.Lw)+20);
+  if(t>=50){ ctx.fillText('Swing high',X(50)-30,Y(fbM.H)-12); }
+  $('fb-note').textContent = t<119 ? (t<50?'Price makes a strong move up…':'Price pulls back. Where will it stop?') :
+    fbF>1 ? 'Price fell through every level. Fibonacci levels are areas to watch, not promises. A stop below the swing low would have capped the loss.'
+          : 'Price paused near the '+(fbF*100).toFixed(1)+'% level and resumed the uptrend. Traders who waited there bought at a better price than the top.';
+}
+function playFib(){ fbM=fibModel(); animate('fib',119,5000,drawFib); }
+$('fb-seg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; fbF=+b.dataset.f; [...$('fb-seg').children].forEach(x=>x.setAttribute('aria-pressed',x===b)); playFib(); });
+
+/* module 4: RSI */
+const rsiP = build([[0,40],[25,75],[40,62],[55,86],[70,60],[90,28],[105,44],[119,36]],51,1.6);
+const rsiV = (()=>{ const n=14, out=Array(rsiP.length).fill(null); let g=0,l=0;
+  for(let i=1;i<=n;i++){ const d=rsiP[i]-rsiP[i-1]; d>0?g+=d:l-=d; } g/=n; l/=n; out[n]=100-100/(1+g/(l||1e-9));
+  for(let i=n+1;i<rsiP.length;i++){ const d=rsiP[i]-rsiP[i-1]; g=(g*(n-1)+Math.max(d,0))/n; l=(l*(n-1)+Math.max(-d,0))/n; out[i]=100-100/(1+g/(l||1e-9)); }
+  return out; })();
+function drawRsi(t){
+  const cv=$('cv-rsi'); if(!shown(cv)) return; const {ctx,w,h}=setup(cv); ctx.clearRect(0,0,w,h);
+  const L=14,R=w-60,T=12, split=h*0.6, B2=h-12;
+  const lo=Math.min(...rsiP)-4, hi=Math.max(...rsiP)+4;
+  const X=i=>L+i/119*(R-L), Y=v=>split-10-(v-lo)/(hi-lo)*(split-10-T), Yr=v=>B2-v/100*(B2-split-6);
+  grid(ctx,L,R,T,split-10,3); ctx.font=MONO;
+  pathLine(ctx,rsiP,Math.floor(t),X,Y,C.ink,2.2);
+  ctx.fillStyle=C.muted; ctx.fillText('Price',R+6,T+10); ctx.fillText('RSI 14',R+6,split+14);
+  ctx.fillStyle=C.sunk; ctx.fillRect(L,Yr(70),R-L,Yr(30)-Yr(70));
+  hline(ctx,L,R,Yr(70),C.down,'70'); hline(ctx,L,R,Yr(30),C.up,'30');
+  pathLine(ctx,rsiV,Math.floor(t),X,Yr,C.ma,2);
+  const i=Math.min(119,Math.floor(t)), v=rsiV[i];
+  if(v!=null){ const tag = v>=70?'Overbought: '+v.toFixed(0):v<=30?'Oversold: '+v.toFixed(0):'RSI '+v.toFixed(0); ctx.fillStyle=v>=70?C.down:v<=30?C.up:C.muted; ctx.fillText(tag,L+6,split+14); }
+}
+function playRsi(){ animate('rsi',119,6000,drawRsi); }
+$('rsi-replay').addEventListener('click',playRsi);
+
+/* module 4: chart patterns */
+const PATS={
+ dtop:{keys:[[0,30],[25,72],[40,52],[60,72],[75,52],[86,42],[119,28]],seed:71,lines:[['h',52,'Neckline']],labels:[[25,'Top 1',1],[60,'Top 2',1],[80,'Break',0]],
+   note:'Price fails twice at the same high. When it closes below the neckline (the low between the tops), many traders sell, targeting a drop about as deep as the pattern is tall.'},
+ hs:{keys:[[0,30],[18,60],[28,48],[45,76],[60,48],[75,62],[88,47],[95,40],[119,28]],seed:73,lines:[['h',48,'Neckline']],labels:[[18,'Left shoulder',1],[45,'Head',1],[75,'Right shoulder',1],[92,'Break',0]],
+   note:'A high, a higher high, then a lower high. The uptrend is losing strength. A close below the neckline completes the pattern.'},
+ tri:{keys:[[0,30],[15,70],[28,45],[42,70],[54,55],[66,70],[76,62],[86,70],[93,79],[119,92]],seed:75,lines:[['h',70,'Resistance'],['s',28,45,76,62,'Rising support']],labels:[[93,'Breakout',1]],
+   note:'Buyers keep stepping in at higher prices while sellers hold one level. Pressure builds until price often breaks upward. Downside breaks happen too.'},
+ flag:{keys:[[0,25],[25,76],[35,68],[42,72],[52,64],[60,68],[68,62],[80,86],[119,95]],seed:77,lines:[['s',25,76,60,68,''],['s',35,68,68,62,'']],labels:[[12,'Pole',0],[48,'Flag',1],[78,'Breakout',1]],
+   note:'A sharp rise (the pole), then a small drift down (the flag) as early buyers take profit. A break above the flag often continues the move.'}
+};
+let ptKey='dtop', ptM=null;
+function drawPat(t){
+  const cv=$('cv-pat'); if(!shown(cv)||!ptM) return; const {ctx,w,h}=setup(cv); ctx.clearRect(0,0,w,h);
+  const s=PATS[ptKey], L=14,R=w-(w<520?90:110),T=16,B=h-16, X=i=>L+i/119*(R-L), Y=v=>B-v/100*(B-T);
+  grid(ctx,L,R,T,B,4); ctx.font=MONO;
+  s.lines.forEach(l=>{ if(l[0]==='h') hline(ctx,L,R,Y(l[1]),C.muted,l[2]);
+    else { const [_,i1,v1,i2,v2,lab]=l; if(t<i2) return; const slope=(v2-v1)/(i2-i1), x2=Math.min(119,i2+20);
+      ctx.strokeStyle=C.accent; ctx.lineWidth=1.6; ctx.setLineDash([6,5]); ctx.beginPath(); ctx.moveTo(X(i1),Y(v1)); ctx.lineTo(X(x2),Y(v1+slope*(x2-i1))); ctx.stroke(); ctx.setLineDash([]);
+      if(lab){ ctx.fillStyle=C.accent; ctx.fillText(lab,X(x2)+6,Y(v1+slope*(x2-i1))+4); } } });
+  pathLine(ctx,ptM,Math.floor(t),X,Y,C.ink,2.4);
+  s.labels.forEach(([i,txt,above])=>{ if(t<i) return; const v=ptM[i]; ctx.fillStyle=C.ink; ctx.font='600 12px "JetBrains Mono", monospace';
+    const tw=ctx.measureText(txt).width; ctx.fillText(txt, Math.max(L,Math.min(R-tw,X(i)-tw/2)), above?Y(v)-12:Y(v)+22); ctx.font=MONO; });
+  $('pt-note').textContent=s.note;
+}
+function playPat(){ const s=PATS[ptKey]; ptM=build(s.keys,s.seed,0.8); animate('pat',119,5500,drawPat); }
+$('pt-seg').addEventListener('click',e=>{ const b=e.target.closest('button'); if(!b) return; ptKey=b.dataset.p; [...$('pt-seg').children].forEach(x=>x.setAttribute('aria-pressed',x===b)); playPat(); });
+
+/* module 4: pivots */
+function pvCalc(){
+  const H=+$('pv-h').value, Lo=+$('pv-l').value, Cl=+$('pv-c').value;
+  if(!(H>0&&Lo>0&&Cl>0)||H<Lo){ $('pv-out').innerHTML='<div><small>Check inputs</small><strong>High must be above low</strong></div>'; return; }
+  const P=(H+Lo+Cl)/3, R1=2*P-Lo, S1=2*P-H, R2=P+(H-Lo), S2=P-(H-Lo);
+  $('pv-out').innerHTML=[['R2',R2,'neg'],['R1',R1,'neg'],['Pivot',P,''],['S1',S1,'pos'],['S2',S2,'pos']].map(([k,v,c])=>'<div><small>'+k+'</small><strong class="'+c+'">'+v.toFixed(4)+'</strong></div>').join('');
+}
+['pv-h','pv-l','pv-c'].forEach(id=>$(id).addEventListener('input',pvCalc)); pvCalc();
+
+/* module 7: carry */
+function cyCalc(){
+  const lots=Math.max(0,+$('cy-lots').value||0), d=+$('cy-diff').value||0, days=Math.max(0,+$('cy-days').value||0);
+  const day=lots*100000*d/100/365, tot=day*days, pv=lots*10;
+  $('cy-day').textContent=money2(day); $('cy-tot').textContent=money2(tot); $('cy-pips').textContent=pv?Math.round(tot/pv)+' pips':'—';
+}
+['cy-lots','cy-diff','cy-days'].forEach(id=>$(id).addEventListener('input',cyCalc)); cyCalc();
+
+/* module 9: quiz */
+const QZ={scalp:'Scalping: many trades lasting minutes. The hardest style for beginners, because costs add up fast and it needs full attention. Not a good fit alongside a day job.',
+ day:'Day trading: every trade closed the same day. Fits if you have a few free hours, such as weekday evenings during the London–New York overlap in Manila.',
+ swing:'Swing trading: trades lasting a few days, checked once or twice a day on 4-hour and daily charts. Usually the best fit for people with full-time jobs.',
+ position:'Position trading: trades held for weeks, based mostly on fundamentals. Very little screen time, but it needs wide stops, patience and a bigger account.'};
+$('qz').addEventListener('change',()=>{
+  const f=new FormData($('qz')), a=['q1','q2','q3'].map(q=>f.get(q));
+  if(a.some(x=>!x)){ $('qz-out').textContent='Answer all three questions to see a suggested style.'; return; }
+  const cnt={}; a.forEach(x=>cnt[x]=(cnt[x]||0)+1);
+  const best=['swing','day','position','scalp'].sort((x,y)=>(cnt[y]||0)-(cnt[x]||0))[0];
+  $('qz-out').innerHTML='<b>Suggested style:</b> '+QZ[best];
+});
+
+/* module 9: plan builder */
+const TP=['pairs','tf','strat','entry','stop','exit','risk','max','when','review'];
+try{ const sv=JSON.parse(localStorage.getItem('fx-plan')||'null'); if(sv) TP.forEach(k=>{ if(sv[k]!=null) $('tp-'+k).value=sv[k]; }); }catch(e){}
+function tpBuild(){
+  const v={}; TP.forEach(k=>v[k]=$('tp-'+k).value.trim());
+  try{ localStorage.setItem('fx-plan',JSON.stringify(v)); }catch(e){}
+  $('tp-out').textContent=
+'MY TRADING PLAN\n\n'+
+'Pairs:        '+v.pairs+'\n'+
+'Timeframes:   '+v.tf+'\n'+
+'Strategy:     '+v.strat+'\n\n'+
+'ENTRY:  '+v.entry+'\n'+
+'STOP:   '+v.stop+'\n'+
+'EXIT:   '+v.exit+'\n\n'+
+'Risk per trade:  '+v.risk+'% of my account (sized with a calculator)\n'+
+'Daily limit:     stop trading after '+v.max+' losses\n'+
+'When I trade:    '+v.when+'\n'+
+'Journal review:  '+v.review+'\n\n'+
+'RULES I DO NOT BREAK\n'+
+'- Every trade has a stop-loss before I enter.\n'+
+'- I never move a stop further away.\n'+
+'- No trading in the minutes around major news.\n'+
+'- If it is not in this plan, I do not take the trade.';
+}
+TP.forEach(k=>$('tp-'+k).addEventListener('input',tpBuild)); tpBuild();
+$('tp-copy').addEventListener('click',()=>{
+  const txt=$('tp-out').textContent;
+  const sel=()=>{ const r=document.createRange(); r.selectNodeContents($('tp-out')); const s=getSelection(); s.removeAllRanges(); s.addRange(r); $('tp-msg').textContent='Selected. Copy it with your device.'; };
+  try{ navigator.clipboard.writeText(txt).then(()=>$('tp-msg').textContent='Copied',sel); }catch(e){ sel(); }
+});
+
+/* open/redraw handling */
+const MOD_INIT={2:drawCt,3:playFib,4:()=>{playRsi();playPat();}};
+document.querySelectorAll('details.mod').forEach(d=>d.addEventListener('toggle',()=>{ if(d.open && MOD_INIT[d.dataset.mod]) requestAnimationFrame(MOD_INIT[d.dataset.mod]); }));
+function redrawCourse(){ drawCt(); drawFib(fbM?119:0); drawRsi(119); if(ptM) drawPat(119); }
+redrawers.push(redrawCourse); window.addEventListener('resize',redrawCourse);
+})();
+</script>
+
+</body></html>
